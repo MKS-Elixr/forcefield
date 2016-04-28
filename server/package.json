@@ -6,6 +6,7 @@
     "test": "standard"
   },
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "knex": "^0.10.0"
   }
 }
