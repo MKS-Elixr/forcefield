@@ -4,5 +4,8 @@
   },
   "scripts": {
     "test": "standard"
+  },
+  "dependencies": {
+    "express": "^4.13.4"
   }
 }
