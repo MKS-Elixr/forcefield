@@ -1,0 +1,37 @@
+<!-- View Wrapper -->
+<ion-view title="Jubilant Umbrella">
+
+  <!-- Content Wrapper -->
+  <ion-content>
+
+    <!-- User Form -->
+    <form>
+      <ion-list>
+
+        <!-- Full Name Input -->
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Full Name</span>
+          <input ng-model="landing.account.name" type="text" placeholder="John Doe">
+        </label>
+
+        <!-- Email Input -->
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Email</span>
+          <input ng-model="landing.account.email" type="text" placeholder="john@doe.com">
+        </label>
+
+        <!-- Password Input -->
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Password</span>
+          <input ng-model="landing.account.password" type="password" placeholder="PassWord123">
+        </label>
+      </ion-list>
+    </form>
+
+    <!-- Sign In & Up Buttons -->
+    <div class="padding">
+      <button ng-click="landing.signIn()" class="button button-block button-stable">Sign In</button>
+      <button ng-click="landing.signUp()" class="button button-block button-stable">Sign Up</button>
+    </div>
+  </ion-content>
+</ion-view>
