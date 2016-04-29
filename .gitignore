@@ -1,1 +1,14 @@
+# App
+app/resources/android
+app/resources/ios
+app/www/css
+lib
+platforms
+plugins
+
+# Dashboard
+bower_components
+
+# Server
 node_modules
+.sqlite
