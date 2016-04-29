@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jubilant Umbrella</title>
+
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/ionic.app.css">
+
+    <!-- Ionic Bundle -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- ngCordova -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+
+    <!-- ngStorage -->
+    <script src="lib/ngstorage/ngStorage.min.js"></script>
+
+    <!-- Cordova -->
+    <script src="cordova.js"></script>
+
+    <!-- App -->
+    <script src="app/app.module.js"></script>
+    <script src="app/app.constants.js"></script>
+    <script src="app/app.run.js"></script>
+    <script src="app/core/core.module.js"></script>
+    <script src="app/layout/tabs.routes.js"></script>
+    <script src="app/landing/landing.module.js"></script>
+    <script src="app/landing/landing.controller.js"></script>
+    <script src="app/landing/landing.routes.js"></script>
+    <script src="app/dashboard/dashboard.module.js"></script>
+    <script src="app/dashboard/dashboard.controller.js"></script>
+    <script src="app/dashboard/dashboard.routes.js"></script>
+    <script src="app/settings/settings.module.js"></script>
+    <script src="app/settings/settings.controller.js"></script>
+    <script src="app/settings/settings.routes.js"></script>
+  </head>
+  <body ng-app="jubilant-umbrella">
+
+    <!-- Navigation Bar -->
+    <ion-nav-bar class="bar-assertive">
+      <ion-nav-back-button></ion-nav-back-button>
+    </ion-nav-bar>
+
+    <!-- Template -->
+    <ion-nav-view></ion-nav-view>
+  </body>
+</html>
