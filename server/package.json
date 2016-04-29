@@ -1,13 +1,13 @@
 {
-  "devDependencies": {
-    "standard": "^6.0.8"
-  },
-  "scripts": {
-    "test": "standard"
-  },
-  "dependencies": {
-    "bookshelf": "^0.9.4",
-    "express": "^4.13.4",
-    "knex": "^0.10.0"
-  }
+ "devDependencies": {
+   "standard": "^6.0.8"
+ },
+ "scripts": {
+   "test": "standard"
+ },
+ "dependencies": {
+   "bookshelf": "^0.9.4",
+   "express": "^4.13.4",
+   "knex": "^0.10.0"
+ }
 }
