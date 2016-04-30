@@ -1,0 +1,15 @@
+<html>
+  <head>
+  </head>
+  <body ng-app="app">
+    <div class="login-form">
+      <h1>Jubilant Umbrella</h1>
+      <div class="form-group" ng-controller="loginController as login"></div>
+      <form action="/" class="login">
+        <input class="loginForm" type="text" name="username" ng-model="login.username" placeholder="Username">
+        <input type="password" name="password" ng-model="login.password" placeholder="Password">
+        <button class="loginSubmitButton" ng-click="login.submit()">Sign In</button>
+        <button class="loginSubmitButton" ng-click"login.redirectSignUp()">Sign Up!</button>
+    </div>
+  </body>
+</html>
