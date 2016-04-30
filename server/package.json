@@ -6,6 +6,7 @@
    "test": "standard"
  },
  "dependencies": {
+   "body-parser": "^1.15.0",
    "bookshelf": "^0.9.4",
    "express": "^4.13.4",
    "knex": "^0.10.0"
