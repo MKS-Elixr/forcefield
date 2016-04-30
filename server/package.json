@@ -3,6 +3,7 @@
    "standard": "^6.0.8"
  },
  "scripts": {
+   "start": "node server.js",
    "test": "standard"
  },
  "dependencies": {
