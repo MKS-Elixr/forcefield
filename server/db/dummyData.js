@@ -1,124 +1,188 @@
-var knex = require('../db/config.js').knex
+// // var knex = require('../db/schema.js').knex
 
-function makeUsers () {
-  return knex('users').insert(users).then(function (resp) {
-    console.log('users were created')
-  }, function (err) {
-    console.error('user insertion error. Users were not created. err = ', err)
-  })
-}
+// // function makeStudents () {
+// //   return knex('students').insert(students).then(function (resp) {
+// //     console.log('students were inserted')
+// //   }, function (err) {
+// //     console.error('student insertion error. students were not created. err = ', err)
+// //   })
+// // }
 
-function makeSchools () {
-  return knex('schools').insert(schools).then(function (resp) {
-    console.log('schools were created')
-  }, function (err) {
-    console.error('school insertion error. Schools were not created. err = ', err)
-  })
-}
-function makeUserEvents () {
-  return knex('userevents').then(function (userevents) {
-    userevents.forEach(function (userevents, usereventsIndex) {
-      if (usereventsIndex >= userevents.length - 6) {
-        return
-      }
+// // function makeSchools () {
+// //   return knex('schools').insert(schools).then(function (resp) {
+// //     console.log('schools were inserted')
+// //   }, function (err) {
+// //     console.error('schools insertion error. schools were not created. err = ', err)
+// //   })
+// // }
 
-      for (var i = 1; i < 6; i++) {
-        knex('userevents').insert({
-          uid: users.ID,
-          eid: events.ID,
-          status: 'open'
-        }).then(function (resp) {
-          console.log(resp)
-        })
-      }
-    })
-  })
-}
+// // function makeEvents () {
+// //   return knex('events').insert(events).then(function (resp) {
+// //     console.log('events were inserted')
+// //   }, function (err) {
+// //     console.error('events insertion error. events were not created. err = ', err)
+// //   })
+// // }
 
-var users = [
-  {
-    username: 'kan',
-    firstname: 'Kan',
-    lastname: 'Adachi',
-    email: 'kan@email.com',
-    password: 'dog'
-  }, {
-    username: 'ben',
-    firstname: 'Ben',
-    lastname: 'Richter',
-    email: 'ben@email.com',
-    password: 'dog'
-  }, {
-    username: 'jessica',
-    firstname: 'Jessica',
-    lastname: 'Chou',
-    email: 'jessica@email.com',
-    password: 'dog'
-  }
-]
+// // function getStudentsId () {
+// //   return knex('students')
+// //     .then(function (resp) {
+// //       console.log('thi is sdid resp', resp)
+// //       return resp
+// //     })
+// // }
 
-var schools = [
-  {
-    name: 'markersquare',
-    password: 'marker',
-    email: 'marker@marker.com',
-    longtitude: 123,
-    latitude: 1234
-  },
-  {
-    name: 'kanacademy',
-    password: 'kan',
-    email: 'kan@kan.com',
-    longtitude: 234,
-    latitude: 2345
-  }
-]
+// // function getEventsId () {
+// //   return knex('events')
+// //     .then(function (resp) {
+// //       console.log('this is eid', resp)
+// //       return resp
+// //     })
+// // }
 
-var events = [
-  {
-    description: 'help',
-    status: 'open',
-    imgurl: 'http://google.com',
-    longitude: 156,
-    latitude: 246
-  },
-  {
-    description: 'help2',
-    status: 'open',
-    imgurl: 'http://google.com',
-    longitude: 5544,
-    latitude: 4566
-  },
-  {
-    description: 'help3',
-    status: 'open',
-    imgurl: 'http://google.com',
-    longitude: 156,
-    latitude: 246
-  },
-  {
-    description: 'help4',
-    status: 'open',
-    imgurl: 'http://google.com',
-    longitude: 73728,
-    latitude: 3849
-  },
-  {
-    description: 'help5',
-    status: 'open',
-    imgurl: 'http://google.com',
-    longitude: 73728,
-    latitude: 3849
-  },
-  {
-    description: 'help6',
-    status: 'open',
-    imgurl: 'http://google.com',
-    longitude: 980,
-    latitude: 234234
-  }
-]
+// // function makeStudentEvents () {
+// //   return knex('studentsevents').insert(studentevents).then(function (resp) {
+// //     console.log('studentevents were inserted')
+// //   }, function (err) {
+// //     console.error('studentsevents insertion error. studentsevents were not created. err = ', err)
+// //   })
+// // }
+// // function makeStudentEvents () {
+// //   var studentid=[]
+// //   var eventid=[]
+// //   getStudentsId().then(function(resp){
+// //     resp.forEach(function(currentEl){
+// //       studentid.push(currentEl.ID)
+// //       console.log('this is sdid in make', studentid)
+// //       })
+// //     return studentid[0]
+// //     }).then(function(resp){
+// //       console.log('this suppose to be sdid ', resp)
+// //       knex('studentsevents').insert({sdid: resp}).then(function(err){
+// //         console.log('err in getting sdid not inserted', err)
+// //       })
+// //     })
+// //   getEventsId().then(function(resp){
+// //     resp.forEach(function(currentEl){
+// //       eventid.push(currentEl.ID)
+// //       console.log('this is eid in make', eventid)
+// //       })
+// //     return eventid[0]
+// //   }).then(function(resp){
+// //     console.log('this suppose to be eid', resp)
+// //     knex('studentsevents').insert({eid: resp}).then(function(err){
+// //       console.log('err in getting eid not inserted', err)
+// //     })
+// //   })
+// // }
 
-makeUsers()
-makeSchools()
-makeUserEvents()
+// var studentevents = [
+//   {
+//     sdid: 1,
+//     eid: 2
+//   }
+// ]
+// var students = [
+//   {
+//     name: 'kan',
+//     email: 'kan@email.com',
+//     studentid: 'Kan123',
+//     password: 'dog',
+//     phonenum: 123345123,
+//     url: 'www.google.com',
+//     longitude: 123,
+//     latitude: 234,
+//     sid: 1
+//   }, {
+//     name: 'ben',
+//     email: 'ben@email.com',
+//     studentid: 'ben123',
+//     password: 'dog',
+//     phonenum: 123345123,
+//     url: 'www.google.com',
+//     longitude: 123,
+//     latitude: 234,
+//     sid: 1
+//   }, {
+//     name: 'jess',
+//     email: 'jess@email.com',
+//     studentid: 'jess123',
+//     password: 'dog',
+//     phonenum: 123345123,
+//     url: 'www.google.com',
+//     longitude: 123,
+//     latitude: 234,
+//     sid: 2
+//   }
+// ]
+
+// var schools = [
+//   {
+//     name: 'markersquare',
+
+//     longitude: 123,
+//     latitude: 1234
+//   },
+//   {
+//     name: 'kanacademy',
+
+//     longitude: 234,
+//     latitude: 2345
+//   }
+// ]
+
+// var events = [
+//   {
+//     description: 'help',
+//     status: 'active',
+//     imgurl: 'http://google.com',
+//     longitude: 156,
+//     latitude: 246
+
+//   },
+//   {
+//     description: 'help2',
+//     status: 'active',
+//     imgurl: 'http://google.com',
+//     longitude: 5544,
+//     latitude: 4566
+
+//   },
+//   {
+//     description: 'help3',
+//     status: 'active',
+//     imgurl: 'http://google.com',
+//     longitude: 156,
+//     latitude: 246
+
+//   }
+//   // {
+//   //   description: 'help4',
+//   //   status: 'active',
+//   //   imgurl: 'http://google.com',
+//   //   longitude: 73728,
+//   //   latitude: 3849,
+
+//   // },
+//   // {
+//   //   description: 'help5',
+//   //   status: 'active',
+//   //   imgurl: 'http://google.com',
+//   //   longitude: 73728,
+//   //   latitude: 3849,
+
+//   // },
+//   // {
+//   //   description: 'help6',
+//   //   status: 'active',
+//   //   imgurl: 'http://google.com',
+//   //   longitude: 980,
+//   //   latitude: 234234,
+
+// // }
+// ]
+
+// //  makeStudents()
+// //  makeSchools()
+// // makeEvents()
+// // makeStudentEvents()
