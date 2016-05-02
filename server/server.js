@@ -2,7 +2,6 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var app = express()
 var cors = require('cors')
-var config = require('./modules/config')
 var path = require('path')
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -16,6 +15,8 @@ require('./routes/routes.js')(app, express)
 
 module.exports = app
 
-app.listen(config.port, function () {
-  console.log('The server is available at http://localhost:', config.port)
+var port = process.env.PORT || 8080
+
+app.listen(port, function () {
+  console.log('The server is available at http://localhost:' + port)
 })
