@@ -1,0 +1,17 @@
+<ui-gmap-google-map center="dashboard.map.center" zoom="dashboard.map.zoom">
+</ui-gmap-google-map>
+<div>
+  <md-content class="md-padding" id="alert_container">
+    <div layout="column" layout-gt-xs="row" ng-repeat="emergency in dashboard.emergencies">
+      <md-card flex flex-gt-xs="30">
+        <h2>Emergency {{$index + 1}}</h2>
+        <md-card-content>
+          <p>Time: {{emergency.timestamp}}</p>
+          <p>Location: {{emergency.location}}</p>
+          <p>Name: {{emergency.name}}</p>
+          <p>Phone: {{emergency.phone}}</p>
+        </md-card-content>
+      </md-card>
+    </div>
+  </md-content>
+</div>

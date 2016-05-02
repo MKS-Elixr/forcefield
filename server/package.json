@@ -12,5 +12,13 @@
    "cors": "^2.7.1",
    "express": "^4.13.4",
    "knex": "^0.10.0"
+ },
+ "standard": {
+   "globals": [
+     "angular"
+   ],
+   "ignore": [
+     "bower_components"
+   ]
  }
 }
