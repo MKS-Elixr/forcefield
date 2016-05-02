@@ -15,8 +15,6 @@ var bookshelf = Bookshelf
 knex.schema.createTableIfNotExists('schools', function (table) {
   table.increments('ID').primary()
   table.string('name')
-  table.string('password')
-  table.string('email')
   table.integer('longitude')
   table.integer('latitude')
 }).then(function () {
@@ -31,7 +29,7 @@ knex.schema.createTableIfNotExists('events', function (table) {
   table.string('imgurl')
   table.integer('longitude')
   table.integer('latitude')
-  table.integer('createdby')
+  table.boolean('createdby')
 // createdby expects a user id
 }).then(function () {
   console.log('events schema created.')
@@ -43,28 +41,30 @@ knex.schema.createTableIfNotExists('students', function (table) {
   table.string('email')
   table.string('studentid')
   table.string('password')
+  table.integer('phonenum')
+  table.integer('url')
   table.integer('longitude')
   table.integer('latitude')
   table.integer('sid')
-  table.foreign('sid').references('schools.ID')
+  table.boolean('waitness')
 }).then(function () {
+  knex.schema.table('students', function (table) {
+    table.foreign('sid').references('schools.ID')
+  })
   console.log('students schema created.')
-// table.integer('sid')
-// table.foreign('sid').references('schools.ID')
 })
 
 knex.schema.createTableIfNotExists('studentsevents', function (table) {
   table.increments('ID').primary()
   table.integer('sdid')
   table.integer('eid')
-  table.foreign('uid').references('students.ID')
-  table.foreign('eid').references('events.ID')
+  table.boolean('created_by')
 }).then(function () {
+  knex.schema.table('studentsevents', function (table) {
+    table.foreign('sdid').references('students.ID')
+    table.foreign('eid').references('events.ID')
+  })
   console.log('studentsevents schema created.')
-// table.integer('uid')
-// table.integer('eid')
-// table.foreign('uid').references('users.ID')
-// table.foreign('eid').references('events.ID')
 })
 
 knex.schema.createTableIfNotExists('officers', function (table) {
@@ -75,71 +75,69 @@ knex.schema.createTableIfNotExists('officers', function (table) {
   table.timestamp('patchtime')
   table.timestamp('returntime').defaultTo(knex.fn.now())
   table.integer('sid')
-  table.foreign('sid').references('schools.ID')
 }).then(function () {
+  knex.schema.table('officers', function (table) {
+    table.foreign('sid').references('schools.ID')
+  })
   console.log('officers schema created.')
-// table.integer('sid')
-// table.foreign('sid').references('schools.ID')
 })
 
 knex.schema.createTableIfNotExists('officerevents', function (table) {
   table.increments('ID').primary()
   table.integer('oid')
   table.integer('eid')
-  table.foreign('oid').references('officers.ID')
-  table.foreign('eid').references('events.ID')
 }).then(function () {
-  console.log('officerevents table created.')
-// table.integer('oid')
-// table.integer('eid')
-// table.foreign('oid').references('officers.ID')
-// table.foreign('eid').references('events.ID')
+  knex.schema.table('officerevents', function (table) {
+    table.foreign('oid').references('officers.ID')
+    table.foreign('eid').references('events.ID')
+  })
+  console.log('officerevents schema created.')
 })
 
-var Schools = bookshelf.Model.extend({
-  tableName: 'schools',
-  Students: function () {
-    return this.hasMany(Students)
-  },
-  Officers: function () {
-    return this.hasMany(Officers)
-  }
-})
+// var Schools = bookshelf.Model.extend({
+//   tableName: 'schools',
+//   students: function () {
+//     return this.hasMany(students)
+//   },
+//   officers: function () {
+//     return this.hasMany(officers)
+//   }
+// })
 
-var Events = bookshelf.Model.extend({
-  tableName: 'events',
-  Students: function () {
-    return this.belongsToMany(Students)
-  },
-  Officers: function () {
-    return this.belongsToMany(Officers)
-  }
-})
+// var Events = bookshelf.Model.extend({
+//   tableName: 'events',
+//   students: function () {
+//     return this.belongsToMany(students)
+//   },
+//   officers: function () {
+//     return this.belongsToMany(officers)
+//   }
+// })
 
-var Students = bookshelf.Model.extend({
-  tableName: 'students',
-  Schools: function () {
-    return this.belongsTo(Schools)
-  },
-  Events: function () {
-    return this.belongsToMany(Events)
-  }
-})
+// var Students = bookshelf.Model.extend({
+//   tableName: 'students',
+//   schools: function () {
+//     return this.belongsTo(schools)
+//   },
+//   events: function () {
+//     return this.belongsToMany(events)
+//   }
+// })
 
-var Officers = bookshelf.Model.extend({
-  tableName: 'officers',
-  Schools: function () {
-    return this.belongsTo(Schools)
-  },
-  Events: function () {
-    return this.belongsToMany(Events)
-  }
-})
+// var Officers = bookshelf.Model.extend({
+//   tableName: 'officers',
+//   schools: function () {
+//     return this.belongsTo(schools)
+//   },
+//   events: function () {
+//     return this.belongsToMany(events)
+//   }
+// })
 
-Schools()
-Events()
-Students()
-Officers()
+// Schools()
+// Events()
+// Students()
+// Officers()
 
 module.exports = {
   knex: knex,
