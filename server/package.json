@@ -11,7 +11,8 @@
    "bookshelf": "^0.9.4",
    "cors": "^2.7.1",
    "express": "^4.13.4",
-   "knex": "^0.10.0"
+   "knex": "^0.10.0",
+   "mysql": "^2.10.2"
  },
  "standard": {
    "globals": [
