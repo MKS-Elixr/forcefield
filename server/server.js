@@ -3,6 +3,7 @@ var bodyParser = require('body-parser')
 var app = express()
 var cors = require('cors')
 var path = require('path')
+// var dummyData = require('./db/dummyData.js')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -11,9 +12,14 @@ app.use('/node_modules', express.static(path.join(__dirname, '/../node_modules')
 
 app.use(cors())
 
-require('./routes/routes.js')(app, express)
+app.use('/universities', require('./routes/routes.js'))
 
 module.exports = app
+
+// dummyData.makeStudents()
+// dummyData.makeEvents()
+// dummyData.makeSchools()
+// dummyData.makeStudentEvents()
 
 var port = process.env.PORT || 8080
 
