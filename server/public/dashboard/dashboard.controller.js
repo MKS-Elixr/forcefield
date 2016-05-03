@@ -21,6 +21,12 @@
     vm.emergencies = Emergencies
 
     // Functions
+    vm.centerOn = function (emergency) {
+      console.log(vm.emergencies)
+      vm.map.center.latitude = emergency.coords.latitude
+      vm.map.center.longitude = emergency.coords.longitude
+      vm.map.zoom = 18
+    }
 
     // Implementation Details
   }

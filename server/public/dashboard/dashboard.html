@@ -1,4 +1,11 @@
 <ui-gmap-google-map center="dashboard.map.center" zoom="dashboard.map.zoom">
+  <div ng-repeat="marker in dashboard.emergencies">
+    <ui-gmap-marker idKey="0" coords="marker.coords">
+      <ui-gmap-window show="true">
+        <div>{{marker.name}}</div>
+      </ui-gmap-window>
+    </ui-gmap-marker>
+  </div>
 </ui-gmap-google-map>
 <div>
   <md-content class="md-padding" id="alert_container">
@@ -11,6 +18,7 @@
           <p>Name: {{emergency.name}}</p>
           <p>Phone: {{emergency.phone}}</p>
         </md-card-content>
+        <md-button class="md-raised" ng-click="dashboard.centerOn(emergency)">Center and Zoom</md-button>
       </md-card>
     </div>
   </md-content>
