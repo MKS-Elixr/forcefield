@@ -10,6 +10,7 @@
     var vm = this
 
     // Variables
+    vm.emergencies = Emergencies
     vm.map = {
       center: {
         latitude: 30.266926,
@@ -18,16 +19,18 @@
       zoom: 14
     }
 
-    vm.emergencies = Emergencies
-
     // Functions
-    vm.centerOn = function (emergency) {
-      console.log(vm.emergencies)
-      vm.map.center.latitude = emergency.coords.latitude
-      vm.map.center.longitude = emergency.coords.longitude
-      vm.map.zoom = 18
-    }
+    vm.centerOn = centerOn
 
     // Implementation Details
+    function centerOn (emergency) {
+      vm.map = {
+        center: {
+          latitude: emergency.coords.latitude,
+          longitude: emergency.coords.longitude
+        },
+        zoom: 18
+      }
+    }
   }
 })()
