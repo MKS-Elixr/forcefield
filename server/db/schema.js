@@ -1,4 +1,7 @@
-require('dotenv').config()
+if (!process.env.DEPLOYED) {
+  var dotenv = require('dotenv')
+  dotenv.config()
+}
 
 var knex = require('knex')({
   client: 'mysql',
