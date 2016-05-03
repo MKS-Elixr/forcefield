@@ -1,13 +1,14 @@
+require('dotenv').config()
+
 var knex = require('knex')({
   client: 'mysql',
   connection: {
-    host: 'mysqlcluster13.registeredsite.com',
-    user: 'whitedeer',
-    password: '!QAZ2wsx',
-    database: 'jubilant_umbrella',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
     charset: 'UTF8'
-  },
-  useNullAsDefault: true
+  }
 })
 
 var Bookshelf = require('bookshelf')(knex)
