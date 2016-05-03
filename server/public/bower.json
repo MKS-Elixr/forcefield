@@ -1,4 +1,5 @@
 {
+  "name": "jubilant-umbrella",
   "ignore": [
     "**/.*",
     "node_modules",
