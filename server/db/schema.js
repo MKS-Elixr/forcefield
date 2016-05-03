@@ -6,7 +6,8 @@ var knex = require('knex')({
     password: '!QAZ2wsx',
     database: 'jubilant_umbrella',
     charset: 'UTF8'
-  }
+  },
+  useNullAsDefault: true
 })
 
 var Bookshelf = require('bookshelf')(knex)
@@ -29,9 +30,11 @@ knex.schema.createTableIfNotExists('events', function (table) {
   table.string('imgurl')
   table.integer('longitude')
   table.integer('latitude')
-  table.boolean('createdby')
-// createdby expects a user id
+  table.integer('sid')
 }).then(function () {
+  knex.schema.table('events', function (table) {
+    table.foreign('sid').references('schools.ID')
+  })
   console.log('events schema created.')
 })
 
@@ -56,43 +59,42 @@ knex.schema.createTableIfNotExists('students', function (table) {
 
 knex.schema.createTableIfNotExists('studentsevents', function (table) {
   table.increments('ID').primary()
-  table.integer('sdid')
+  table.integer('created_by')
   table.integer('eid')
-  table.boolean('created_by')
 }).then(function () {
   knex.schema.table('studentsevents', function (table) {
-    table.foreign('sdid').references('students.ID')
+    table.foreign('created_by').references('students.ID')
     table.foreign('eid').references('events.ID')
   })
   console.log('studentsevents schema created.')
 })
 
-knex.schema.createTableIfNotExists('officers', function (table) {
-  table.increments('ID').primary()
-  table.string('name')
-  table.string('available')
-  table.string('badgenumber')
-  table.timestamp('patchtime')
-  table.timestamp('returntime').defaultTo(knex.fn.now())
-  table.integer('sid')
-}).then(function () {
-  knex.schema.table('officers', function (table) {
-    table.foreign('sid').references('schools.ID')
-  })
-  console.log('officers schema created.')
-})
+// knex.schema.createTableIfNotExists('officers', function (table) {
+//   table.increments('ID').primary()
+//   table.string('name')
+//   table.string('available')
+//   table.string('badgenumber')
+//   table.timestamp('patchtime')
+//   table.timestamp('returntime').defaultTo(knex.fn.now())
+//   table.integer('sid')
+// }).then(function () {
+//   knex.schema.table('officers', function (table) {
+//     table.foreign('sid').references('schools.ID')
+//   })
+//   console.log('officers schema created.')
+// })
 
-knex.schema.createTableIfNotExists('officerevents', function (table) {
-  table.increments('ID').primary()
-  table.integer('oid')
-  table.integer('eid')
-}).then(function () {
-  knex.schema.table('officerevents', function (table) {
-    table.foreign('oid').references('officers.ID')
-    table.foreign('eid').references('events.ID')
-  })
-  console.log('officerevents schema created.')
-})
+// knex.schema.createTableIfNotExists('officerevents', function (table) {
+//   table.increments('ID').primary()
+//   table.integer('oid')
+//   table.integer('eid')
+// }).then(function () {
+//   knex.schema.table('officerevents', function (table) {
+//     table.foreign('oid').references('officers.ID')
+//     table.foreign('eid').references('events.ID')
+//   })
+//   console.log('officerevents schema created.')
+// })
 
 // var Schools = bookshelf.Model.extend({
 //   tableName: 'schools',

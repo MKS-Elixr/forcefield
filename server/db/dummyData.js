@@ -1,52 +1,52 @@
-// // var knex = require('../db/schema.js').knex
+// var knex = require('../db/schema.js').knex
 
-// // function makeStudents () {
-// //   return knex('students').insert(students).then(function (resp) {
-// //     console.log('students were inserted')
-// //   }, function (err) {
-// //     console.error('student insertion error. students were not created. err = ', err)
-// //   })
-// // }
+// function makeStudents () {
+//   return knex('students').insert(students).then(function (resp) {
+//     console.log('students were inserted')
+//   }, function (err) {
+//     console.error('student insertion error. students were not created. err = ', err)
+//   })
+// }
 
-// // function makeSchools () {
-// //   return knex('schools').insert(schools).then(function (resp) {
-// //     console.log('schools were inserted')
-// //   }, function (err) {
-// //     console.error('schools insertion error. schools were not created. err = ', err)
-// //   })
-// // }
+// function makeSchools () {
+//   return knex('schools').insert(schools).then(function (resp) {
+//     console.log('schools were inserted')
+//   }, function (err) {
+//     console.error('schools insertion error. schools were not created. err = ', err)
+//   })
+// }
 
-// // function makeEvents () {
-// //   return knex('events').insert(events).then(function (resp) {
-// //     console.log('events were inserted')
-// //   }, function (err) {
-// //     console.error('events insertion error. events were not created. err = ', err)
-// //   })
-// // }
+// function makeEvents () {
+//   return knex('events').insert(events).then(function (resp) {
+//     console.log('events were inserted')
+//   }, function (err) {
+//     console.error('events insertion error. events were not created. err = ', err)
+//   })
+// }
 
-// // function getStudentsId () {
-// //   return knex('students')
-// //     .then(function (resp) {
-// //       console.log('thi is sdid resp', resp)
-// //       return resp
-// //     })
-// // }
+// function getStudentsId () {
+//   return knex('students')
+//     .then(function (resp) {
+//       console.log('this is sdid resp', resp)
+//       return resp
+//     })
+// }
 
-// // function getEventsId () {
-// //   return knex('events')
-// //     .then(function (resp) {
-// //       console.log('this is eid', resp)
-// //       return resp
-// //     })
-// // }
+// function getEventsId () {
+//   return knex('events')
+//     .then(function (resp) {
+//       console.log('this is eid', resp)
+//       return resp
+//     })
+// }
 
-// // function makeStudentEvents () {
-// //   return knex('studentsevents').insert(studentevents).then(function (resp) {
-// //     console.log('studentevents were inserted')
-// //   }, function (err) {
-// //     console.error('studentsevents insertion error. studentsevents were not created. err = ', err)
-// //   })
-// // }
+// function makeStudentEvents () {
+//   return knex('studentsevents').insert(studentevents).then(function (resp) {
+//     console.log('studentevents were inserted')
+//   }, function (err) {
+//     console.error('studentsevents insertion error. studentsevents were not created. err = ', err)
+//   })
+// }
 // // function makeStudentEvents () {
 // //   var studentid=[]
 // //   var eventid=[]
@@ -78,7 +78,7 @@
 
 // var studentevents = [
 //   {
-//     sdid: 1,
+//     created_by: 1,
 //     eid: 2
 //   }
 // ]
@@ -182,7 +182,10 @@
 // // }
 // ]
 
-// //  makeStudents()
-// //  makeSchools()
-// // makeEvents()
+// module.exports = {
+//   makeStudents: makeStudents,
+//   makeEvents: makeEvents,
+//   makeSchools: makeSchools,
+//   makeStudentEvents: makeStudentEvents
+// }
 // // makeStudentEvents()
