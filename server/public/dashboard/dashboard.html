@@ -9,6 +9,9 @@
 </ui-gmap-google-map>
 <div>
   <md-content class="md-padding" id="alert_container">
+    <div align="right">
+      <md-button class="md-raised" ui-sref="landing">Logout</md-button>
+    </div>
     <div layout="column" layout-gt-xs="row" ng-repeat="emergency in dashboard.emergencies">
       <md-card flex flex-gt-xs="30">
         <h2>Emergency {{$index + 1}}</h2>
