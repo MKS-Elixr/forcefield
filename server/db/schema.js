@@ -73,6 +73,18 @@ knex.schema.createTableIfNotExists('studentsevents', function (table) {
   console.log('studentsevents schema created.')
 })
 
+knex.schema.createTableIfNotExists('schoolstudentevents', function (table) {
+  table.increments('ID').primary()
+  table.integer('studenteventsid')
+  table.integer('sid')
+}).then(function () {
+  knex.schema.table('schoolstudentevents', function (table) {
+    table.foreign('studenteventsid').references('studentsevents.ID')
+    table.foreign('sid').references('schools.ID')
+  })
+  console.log('schoolstudentevents schema created.')
+})
+
 // knex.schema.createTableIfNotExists('officers', function (table) {
 //   table.increments('ID').primary()
 //   table.string('name')
