@@ -10,6 +10,7 @@
   "dependencies": {
     "angular-ui-router": "^0.2.18",
     "angular-google-maps": "^2.3.2",
-    "angular-material": "^1.0.8"
+    "angular-material": "^1.0.8",
+    "angular-socket-io": "^0.7.0"
   }
 }
