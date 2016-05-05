@@ -37,6 +37,7 @@
   "standard": {
     "globals": [
       "angular",
+      "ble",
       "Camera",
       "cordova",
       "StatusBar"
