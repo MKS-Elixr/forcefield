@@ -8,7 +8,7 @@ var path = require('path')
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
-app.use('/node_modules', express.static(path.join(__dirname, '/../node_modules')))
+app.use(express.static('public'))
 
 app.use(cors())
 
