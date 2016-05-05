@@ -47,6 +47,15 @@
 //     console.error('studentsevents insertion error. studentsevents were not created. err = ', err)
 //   })
 // }
+
+// function makeSchoolStudentEvents () {
+//   return knex('schoolstudentevents').insert(schoolstudentevents).then(function (resp) {
+//     console.log('schoolstudentevents were inserted')
+//   }, function (err) {
+//     console.error('schoolstudentevents insertion error, schoolstudentevents were not created. err = ', err)
+//   })
+// }
+
 // // function makeStudentEvents () {
 // //   var studentid=[]
 // //   var eventid=[]
@@ -182,10 +191,23 @@
 // // }
 // ]
 
+// var schoolstudentevents = [
+//   {
+//     studenteventsid: 1,
+//     sid: 1
+
+//   },
+//   {
+//     studenteventsid: 2,
+//     sid: 1
+//   }
+// ]
+
 // module.exports = {
 //   makeStudents: makeStudents,
 //   makeEvents: makeEvents,
 //   makeSchools: makeSchools,
-//   makeStudentEvents: makeStudentEvents
+//   makeStudentEvents: makeStudentEvents,
+//   makeSchoolStudentEvents: makeSchoolStudentEvents
 // }
 // // makeStudentEvents()

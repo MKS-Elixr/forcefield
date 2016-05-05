@@ -11,7 +11,7 @@ function getSchools (schoolname) {
   })
 }
 
-function getStudents (sid) {
+function getStudentsId (sid) {
   return new Promise(function (resolve, reject) {
     knex('students')
       .select('ID')
@@ -34,10 +34,11 @@ function getEvents (sid) {
   })
 }
 
-function getStudentsEvents (eid, sdid) {
+function getStudentsEvents (eid) {
   return new Promise(function (resolve, reject) {
     knex('studentsevents')
-      .where('eid', eid)
+      .whereIn('eid', eid)
+      // .andWhereIn('created_by', sdid)
       .then(function (resp) {
         console.log('getstudentsevents resp', resp)
         resolve(resp)
@@ -48,9 +49,9 @@ function getStudentsEvents (eid, sdid) {
 function getStudentInfo (studentid) {
   return new Promise(function (resolve, reject) {
     knex('students')
-      .where('ID', studentid)
+      .whereIn('ID', studentid)
       .then(function (resp) {
-        console.log('this is studentinfo', resp)
+        // console.log('this is studentinfo', resp)
         resolve(resp)
       })
   })
@@ -59,19 +60,104 @@ function getStudentInfo (studentid) {
 function getEventInfo (eventid) {
   return new Promise(function (resolve, reject) {
     knex('events')
-      .where('ID', eventid)
+      .whereIn('ID', eventid)
       .then(function (resp) {
-        console.log('this is eventsinfo', resp)
+        // console.log('this is eventsinfo', resp)
         resolve(resp)
       })
   })
 }
 
+function showAllStudents (sid) {
+  return new Promise(function (resolve, reject) {
+    knex('students')
+      .where('sid', sid)
+      .then(function (resp) {
+        console.log('this is showallstudents', resp)
+        resolve(resp)
+      })
+  })
+}
+
+function showAllEvents (sid) {
+  return new Promise(function (resolve, reject) {
+    knex('events')
+      .where('sid', sid)
+      .then(function (resp) {
+        console.log('this is showAllEvents', resp)
+        resolve(resp)
+      })
+  })
+}
+
+function getStudentEventsId (eventid, studentid) {
+  console.log('hii')
+  return new Promise(function (resolve, reject) {
+    knex('studentsevents')
+      .select('ID')
+      .whereIn('eid', eventid)
+      .whereIn('created_by', studentid)
+      // .andwhere('created_by',studentid)
+      .then(function (resp) {
+        console.log('this is getstudenteventsid', resp)
+        resolve(resp)
+      })
+  })
+}
+
+function getSchoolStudentEvents (schoolid) {
+  return new Promise(function (resolve, reject) {
+    knex('schoolstudentevents')
+      // .select('ID')
+      .where('sid', schoolid)
+      .then(function (resp) {
+        console.log('this is schoolstudentevents resp', resp)
+        resolve(resp)
+      })
+  })
+}
+
+function getStudentInfoBystudenteventsid (studenteventsid) {
+  return new Promise(function (resolve, reject) {
+    knex('studentsevents')
+      .whereIn('ID', studenteventsid)
+      .then(function (resp) {
+        console.log('this is getStudentInfoBystudenteventsid resp', resp)
+        resolve(resp)
+      })
+  })
+}
+
+function eventdata (eventsarray) {
+  console.log('hey ')
+  return new Promise(function (resolve, reject) {
+    eventsarray.forEach(function (currentEl) {
+      resolve(currentEl)
+    })
+  })
+}
+
+function studentdata (studentarray) {
+  console.log('bye')
+  return new Promise(function (resolve, reject) {
+    studentarray.forEach(function (currentEl) {
+      resolve(currentEl)
+    })
+  })
+}
+
 module.exports = {
   getSchools: getSchools,
-  getStudents: getStudents,
+  getStudentsId: getStudentsId,
   getStudentsEvents: getStudentsEvents,
   getEvents: getEvents,
   getStudentInfo: getStudentInfo,
-  getEventInfo: getEventInfo
+  getEventInfo: getEventInfo,
+  showAllStudents: showAllStudents,
+  showAllEvents: showAllEvents,
+  getStudentEventsId: getStudentEventsId,
+  getSchoolStudentEvents: getSchoolStudentEvents,
+  getStudentInfoBystudenteventsid: getStudentInfoBystudenteventsid,
+  eventdata: eventdata,
+  studentdata: studentdata
 }

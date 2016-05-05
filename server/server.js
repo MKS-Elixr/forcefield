@@ -18,6 +18,7 @@ module.exports = app
 // dummyData.makeEvents()
 // dummyData.makeSchools()
 // dummyData.makeStudentEvents()
+// dummyData.makeSchoolStudentEvents()
 
 var port = process.env.PORT || 8080
 
