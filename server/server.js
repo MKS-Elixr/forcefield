@@ -2,14 +2,12 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var app = express()
 var cors = require('cors')
-var path = require('path')
 // var dummyData = require('./db/dummyData.js')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(bodyParser.json())
-app.use('/node_modules', express.static(path.join(__dirname, '/../node_modules')))
-
+app.use(express.static('public'))
 app.use(cors())
 
 app.use('/universities', require('./routes/routes.js'))
