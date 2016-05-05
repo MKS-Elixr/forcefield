@@ -24,6 +24,7 @@
   <plugin name="cordova-plugin-camera" spec="~2.1.1"/>
   <plugin name="cordova-plugin-x-socialsharing" spec="https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"/>
   <plugin name="cordova-plugin-inappbrowser" spec="https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git"/>
+  <plugin name="cordova-custom-config" spec="~2.0.0" />
   <platform name="ios">
     <icon src="resources/ios/icon/icon.png" width="57" height="57"/>
     <icon src="resources/ios/icon/icon@2x.png" width="114" height="114"/>
