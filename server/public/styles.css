@@ -17,6 +17,8 @@ html, body {
   right: 0px;
   width: 29%;
   float: right;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .md-padding {
@@ -28,4 +30,12 @@ html, body {
 .md-padding h2 {
   margin: 5px;
   padding: 5px;
+}
+
+.closeBtn {
+  color: red !important;
+}
+
+.md-button:nth-child(2) {
+  color: red !important;
 }
