@@ -1,5 +1,5 @@
 <ui-gmap-google-map center="dashboard.map.center" zoom="dashboard.map.zoom">
-  <div ng-repeat="marker in dashboard.emergencies">
+  <div ng-if="marker.active === true" ng-repeat="marker in dashboard.emergencies">
     <ui-gmap-marker idKey="0" coords="marker.coords">
       <ui-gmap-window show="true">
         <div>{{marker.name}}</div>
@@ -12,7 +12,7 @@
     <div align="right">
       <md-button class="md-raised" ui-sref="landing">Logout</md-button>
     </div>
-    <div layout="column" layout-gt-xs="row" ng-if="emergency.active === true"ng-repeat="emergency in dashboard.emergencies">
+    <div layout="column" layout-gt-xs="row" ng-if="emergency.active === true" ng-repeat="emergency in dashboard.emergencies">
       <md-card flex flex-gt-xs="30">
         <h2>Emergency ID: {{emergency.uniqueID}}</h2>
         <md-card-content>
