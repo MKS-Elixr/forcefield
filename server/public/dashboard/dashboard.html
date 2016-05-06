@@ -12,16 +12,17 @@
     <div align="right">
       <md-button class="md-raised" ui-sref="landing">Logout</md-button>
     </div>
-    <div layout="column" layout-gt-xs="row" ng-repeat="emergency in dashboard.emergencies">
+    <div layout="column" layout-gt-xs="row" ng-if="emergency.active === true"ng-repeat="emergency in dashboard.emergencies">
       <md-card flex flex-gt-xs="30">
-        <h2>Emergency {{$index + 1}}</h2>
+        <h2>Emergency ID: {{emergency.uniqueID}}</h2>
         <md-card-content>
           <p>Time: {{emergency.timestamp}}</p>
           <p>Location: {{emergency.location}}</p>
           <p>Name: {{emergency.name}}</p>
           <p>Phone: {{emergency.phone}}</p>
+          <md-button class="md-raised" ng-click="dashboard.centerOn(emergency)">Center</md-button>
+          <md-button class="md-raised closeBtn" ng-click="dashboard.closeEmergency(emergency)">Close</md-button>
         </md-card-content>
-        <md-button class="md-raised" ng-click="dashboard.centerOn(emergency)">Center and Zoom</md-button>
       </md-card>
     </div>
   </md-content>
