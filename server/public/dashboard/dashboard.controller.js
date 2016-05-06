@@ -39,11 +39,11 @@
       var confirm = $mdDialog.confirm()
         .title('Are you sure you want to close this emergency?')
         .ok('Close Emergency')
-        .cancel('Cancel');
-        console.log(confirm)
-        $mdDialog.show(confirm).then(function() {
-          emergency.active = false
-        })
-      }
+        .cancel('Cancel')
+      console.log(confirm)
+      $mdDialog.show(confirm).then(function () {
+        emergency.active = false
+      })
+    }
   }
 })()

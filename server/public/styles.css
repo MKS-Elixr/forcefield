@@ -31,3 +31,11 @@ html, body {
   margin: 5px;
   padding: 5px;
 }
+
+.closeBtn {
+  color: red !important;
+}
+
+.md-button:nth-child(2) {
+  color: red !important;
+}
