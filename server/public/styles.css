@@ -1,5 +1,5 @@
 .angular-google-map-container {
-  height: 100%;
+  height: 99%;
   width:70%;
   position: absolute;
   top: 0;
@@ -18,7 +18,7 @@ html, body {
   width: 29%;
   float: right;
   overflow-y: scroll;
-  height: 100%;
+  height: 99%;
 }
 
 .md-padding {
