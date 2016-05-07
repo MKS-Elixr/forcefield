@@ -23,14 +23,14 @@
 <!-- List of Emergencies (Right Side) -->
 <md-content class="md-padding" id="alert_container">
 
-  <!-- Logout Button -->
-  <div align="right">
-    <md-button class="md-raised" ui-sref="landing">Logout</md-button>
-  </div>
-
   <!-- Toggle Emergencies (Active or Inactive) -->
   <div class="emergencyToggle">
     <md-switch ng-init="dashboard.showInactive = false" ng-model="dashboard.showInactive" class="md-primary" md-no-ink>Show Inactive Emergencies</md-switch>
+  </div>
+
+  <!-- Logout Button -->
+  <div align="right">
+    <md-button class="md-raised" ng-click="dashboard.logout()">Logout</md-button>
   </div>
 
   <!-- Emergencies (Active) -->
