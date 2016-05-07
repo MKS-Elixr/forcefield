@@ -5,7 +5,7 @@
     .module('jubilant-umbrella.dashboard')
     .controller('DashboardController', DashboardController)
 
-  function DashboardController (Emergencies, $mdDialog) {
+  function DashboardController (Emergencies, $mdDialog, $state) {
     // Initialization
     var vm = this
 
@@ -22,6 +22,7 @@
     // Functions
     vm.centerOn = centerOn
     vm.closeEmergency = closeEmergency
+    vm.logout = logout
     vm.openEmergency = openEmergency
 
     // Implementation Details
@@ -42,6 +43,16 @@
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
         Emergencies.close(emergency)
+      })
+    }
+
+    function logout () {
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to logout?')
+        .ok('Logout')
+        .cancel('Cancel')
+      $mdDialog.show(confirm).then(function () {
+        $state.go('landing')
       })
     }
 
