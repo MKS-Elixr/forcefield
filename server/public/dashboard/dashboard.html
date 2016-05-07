@@ -1,29 +1,83 @@
+<!-- Map -->
 <ui-gmap-google-map center="dashboard.map.center" zoom="dashboard.map.zoom">
-  <div ng-if="marker.active === true" ng-repeat="marker in dashboard.emergencies">
-    <ui-gmap-marker idKey="0" coords="marker.coords">
-      <ui-gmap-window show="true">
-        <div>{{marker.name}}</div>
-      </ui-gmap-window>
-    </ui-gmap-marker>
-  </div>
+
+  <!-- Markers (Active) -->
+  <ui-gmap-marker ng-if="!dashboard.showInactive && marker.active" ng-repeat="marker in dashboard.emergencies" idKey="0" coords="marker.location">
+
+    <!-- Marker Label -->
+    <ui-gmap-window show="true">
+      <div>{{marker.name}}</div>
+    </ui-gmap-window>
+  </ui-gmap-marker>
+
+  <!-- Markers (Inactive) -->
+  <ui-gmap-marker ng-if="dashboard.showInactive && !marker.active" ng-repeat="marker in dashboard.emergencies" idKey="0" coords="marker.location">
+
+    <!-- Marker Label -->
+    <ui-gmap-window show="true">
+      <div>{{marker.name}}</div>
+    </ui-gmap-window>
+  </ui-gmap-marker>
 </ui-gmap-google-map>
-<div>
-  <md-content class="md-padding" id="alert_container">
-    <div align="right">
-      <md-button class="md-raised" ui-sref="landing">Logout</md-button>
-    </div>
-    <div layout="column" layout-gt-xs="row" ng-if="emergency.active === true" ng-repeat="emergency in dashboard.emergencies">
-      <md-card flex flex-gt-xs="30">
-        <h2>Emergency ID: {{emergency.uniqueID}}</h2>
-        <md-card-content>
-          <p>Time: {{emergency.timestamp}}</p>
-          <p>Location: {{emergency.location}}</p>
-          <p>Name: {{emergency.name}}</p>
-          <p>Phone: {{emergency.phone}}</p>
-          <md-button class="md-raised" ng-click="dashboard.centerOn(emergency)">Center</md-button>
-          <md-button class="md-raised closeBtn" ng-click="dashboard.closeEmergency(emergency)">Close</md-button>
-        </md-card-content>
-      </md-card>
-    </div>
-  </md-content>
-</div>
+
+<!-- List of Emergencies (Right Side) -->
+<md-content class="md-padding" id="alert_container">
+
+  <!-- Logout Button -->
+  <div align="right">
+    <md-button class="md-raised" ui-sref="landing">Logout</md-button>
+  </div>
+
+  <!-- Toggle Emergencies (Active or Inactive) -->
+  <div class="emergencyToggle">
+    <md-switch ng-init="dashboard.showInactive = false" ng-model="dashboard.showInactive" class="md-primary" md-no-ink>Show Inactive Emergencies</md-switch>
+  </div>
+
+  <!-- Emergencies (Active) -->
+  <div layout="column" layout-gt-xs="row" ng-if="!dashboard.showInactive && emergency.active" ng-repeat="emergency in dashboard.emergencies">
+
+    <!-- Card Wrapper -->
+    <md-card flex flex-gt-xs="30">
+
+      <!-- Emergency ID -->
+      <h2>Emergency {{emergency.uniqueID}}</h2>
+
+      <!-- Emergency Information -->
+      <md-card-content>
+        <p>Name: {{emergency.name}}</p>
+        <p>Phone: {{emergency.phone}}</p>
+        <p>Time: {{emergency.timestamp}}</p>
+
+        <!-- Center On Button -->
+        <md-button class="md-raised" ng-click="dashboard.centerOn(emergency)">Center On</md-button>
+
+        <!-- Set Inactive Button -->
+        <md-button class="md-raised closeBtn" ng-click="dashboard.closeEmergency(emergency)">Set Inactive</md-button>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <!-- Emergencies (Inactive) -->
+  <div layout="column" layout-gt-xs="row" ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies">
+
+    <!-- Card Wrapper -->
+    <md-card flex flex-gt-xs="30">
+
+      <!-- Emergency ID -->
+      <h2>Emergency {{emergency.uniqueID}}</h2>
+
+      <!-- Emergency Informaton -->
+      <md-card-content>
+        <p>Name: {{emergency.name}}</p>
+        <p>Phone: {{emergency.phone}}</p>
+        <p>Time: {{emergency.timestamp}}</p>
+
+        <!-- Center On Button -->
+        <md-button class="md-raised" ng-click="dashboard.centerOn(emergency)">Center On</md-button>
+
+        <!-- Set Active Button -->
+        <md-button class="md-raised closeBtn" ng-click="dashboard.openEmergency(emergency)">Set Active</md-button>
+      </md-card-content>
+    </md-card>
+  </div>
+</md-content>

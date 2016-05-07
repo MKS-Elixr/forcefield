@@ -10,7 +10,7 @@
     var vm = this
 
     // Variables
-    vm.emergencies = Emergencies
+    vm.emergencies = Emergencies.all()
     vm.map = {
       center: {
         latitude: 30.266926,
@@ -22,27 +22,36 @@
     // Functions
     vm.centerOn = centerOn
     vm.closeEmergency = closeEmergency
+    vm.openEmergency = openEmergency
 
     // Implementation Details
     function centerOn (emergency) {
       vm.map = {
         center: {
-          latitude: emergency.coords.latitude,
-          longitude: emergency.coords.longitude
+          latitude: emergency.location.latitude,
+          longitude: emergency.location.longitude
         },
         zoom: 18
       }
     }
 
     function closeEmergency (emergency) {
-      console.log('close emergency pressed')
       var confirm = $mdDialog.confirm()
         .title('Are you sure you want to close this emergency?')
         .ok('Close Emergency')
         .cancel('Cancel')
-      console.log(confirm)
       $mdDialog.show(confirm).then(function () {
-        emergency.active = false
+        Emergencies.close(emergency)
+      })
+    }
+
+    function openEmergency (emergency) {
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to open this emergency?')
+        .ok('Open Emergency')
+        .cancel('Cancel')
+      $mdDialog.show(confirm).then(function () {
+        Emergencies.open(emergency)
       })
     }
   }

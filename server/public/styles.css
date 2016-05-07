@@ -33,9 +33,15 @@ html, body {
 }
 
 .closeBtn {
-  color: red !important;
+  float: right;
 }
 
-.md-button:nth-child(2) {
-  color: red !important;
+.emergencyToggle {
+  padding-left: 10px;
+  margin: auto;  
+  position: absolute;
+  left:0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
