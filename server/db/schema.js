@@ -20,8 +20,8 @@ var bookshelf = Bookshelf
 knex.schema.createTableIfNotExists('schools', function (table) {
   table.increments('ID').primary()
   table.string('name')
-  table.integer('longitude')
-  table.integer('latitude')
+  table.string('longitude')
+  table.string('latitude')
 }).then(function () {
   console.log('school schema created.')
 })
@@ -29,11 +29,12 @@ knex.schema.createTableIfNotExists('schools', function (table) {
 knex.schema.createTableIfNotExists('events', function (table) {
   table.increments('ID').primary()
   table.timestamp('created_at').defaultTo(knex.fn.now())
+  table.string('created_by')
   table.string('description')
   table.string('status')
   table.string('imgurl')
-  table.integer('longitude')
-  table.integer('latitude')
+  table.string('longitude')
+  table.string('latitude')
   table.integer('sid')
 }).then(function () {
   knex.schema.table('events', function (table) {
@@ -50,8 +51,8 @@ knex.schema.createTableIfNotExists('students', function (table) {
   table.string('password')
   table.integer('phonenum')
   table.integer('url')
-  table.integer('longitude')
-  table.integer('latitude')
+  table.string('longitude')
+  table.string('latitude')
   table.integer('sid')
   table.boolean('waitness')
 }).then(function () {
@@ -151,11 +152,6 @@ knex.schema.createTableIfNotExists('schoolstudentevents', function (table) {
 //     return this.belongsToMany(events)
 //   }
 // })
-
-// Schools()
-// Events()
-// Students()
-// Officers()
 
 module.exports = {
   knex: knex,
