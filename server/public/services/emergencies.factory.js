@@ -9,7 +9,7 @@
     var emergencies = [
       {
         uniqueID: '10C',
-        timestamp: 'Apr 30, 2016 8:50:31 PM',
+        started: '2016-05-08T02:32:10.000Z',
         name: 'Willie Nelson',
         phone: '222-222-2222',
         location: {
@@ -20,7 +20,7 @@
       },
       {
         uniqueID: '32T',
-        timestamp: 'Apr 30, 2016 10:17:40 PM',
+        started: '2016-05-08T02:33:10.000Z',
         name: 'Sandra Bullock',
         phone: '333-333-3333',
         location: {
@@ -31,7 +31,7 @@
       },
       {
         uniqueID: '58Z',
-        timestamp: 'Apr 30, 2016 11:00:31 PM',
+        started: '2016-05-08T02:34:10.000Z',
         name: 'Matthew Mcconaughey',
         phone: '444-444-4444',
         location: {
@@ -42,7 +42,7 @@
       },
       {
         uniqueID: '09F',
-        timestamp: 'Apr 30, 2016 10:17:40 PM',
+        started: '2016-05-08T02:35:10.000Z',
         name: 'Michael Dell',
         phone: '555-555-5555',
         location: {
