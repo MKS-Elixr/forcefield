@@ -34,7 +34,7 @@
   </div>
 
   <!-- Emergencies (Active) -->
-  <div layout="column" layout-gt-xs="row" ng-if="!dashboard.showInactive && emergency.active" ng-repeat="emergency in dashboard.emergencies">
+  <div layout="column" layout-gt-xs="row" ng-if="!dashboard.showInactive && emergency.active" ng-repeat="emergency in dashboard.emergencies | orderBy: '-started'">
 
     <!-- Card Wrapper -->
     <md-card flex flex-gt-xs="30">
@@ -58,7 +58,7 @@
   </div>
 
   <!-- Emergencies (Inactive) -->
-  <div layout="column" layout-gt-xs="row" ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies">
+  <div layout="column" layout-gt-xs="row" ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies | orderBy: '-started'">
 
     <!-- Card Wrapper -->
     <md-card flex flex-gt-xs="30">
