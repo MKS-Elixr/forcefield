@@ -5,9 +5,10 @@
     .module('jubilant-umbrella.dashboard')
     .controller('DashboardController', DashboardController)
 
-  function DashboardController (Emergencies, $mdDialog, $state) {
+  function DashboardController (Emergencies, Socket, $mdDialog, $state) {
     // Initialization
     var vm = this
+    activate()
 
     // Variables
     vm.emergencies = Emergencies.all()
@@ -22,10 +23,22 @@
     // Functions
     vm.centerOn = centerOn
     vm.closeEmergency = closeEmergency
+    vm.fakeEmergency = fakeEmergency
     vm.logout = logout
     vm.openEmergency = openEmergency
 
     // Implementation Details
+    function activate () {
+      Socket.on('newEmergency', function (emergency) {
+        // Data Server Should Provide (But Doesn't)
+        emergency.active = true
+        emergency.name = 'Mock Data'
+        emergency.phone = '012.345.6789'
+
+        Emergencies.add(emergency)
+      })
+    }
+
     function centerOn (emergency) {
       vm.map = {
         center: {
@@ -43,6 +56,16 @@
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
         Emergencies.close(emergency)
+      })
+    }
+
+    function fakeEmergency () {
+      Socket.emit('buttonPress', {
+        email: 'fake@email.xxo',
+        location: {
+          latitude: '50.4932021',
+          longitude: '50.431290421'
+        }
       })
     }
 

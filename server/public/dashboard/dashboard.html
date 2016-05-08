@@ -33,6 +33,11 @@
     <md-button class="md-raised" ng-click="dashboard.logout()">Logout</md-button>
   </div>
 
+  <!-- Fake Emergency Button -->
+  <div alight="right">
+    <md-button class="md-raised" ng-click="dashboard.fakeEmergency()">Fake Emergency</md-button>
+  </div>
+
   <!-- Emergencies (Active) -->
   <div layout="column" layout-gt-xs="row" ng-if="!dashboard.showInactive && emergency.active" ng-repeat="emergency in dashboard.emergencies | orderBy: '-started'">
 
