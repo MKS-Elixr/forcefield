@@ -3,6 +3,7 @@
     "standard": "^6.0.8"
   },
   "scripts": {
+    "postinstall": "npm install bower -g && cd public && bower install && cd ../",
     "start": "node server.js",
     "test": "standard"
   },
