@@ -91,7 +91,7 @@ io.on('connection', function (socket) {
                 socket.emit('newEmergency', {
                   id: resp.eventid,
                   by: resp.studentname,
-                  time: resp.eventtime,
+                  started: resp.eventtime.created_at,
                   location: data.location,
                   status: 'active'
                 })

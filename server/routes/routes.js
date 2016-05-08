@@ -94,7 +94,7 @@ router.get('/makersquare/events', function (req, res) {
                   var data = {
                     id: eventresp.ID,
                     by: studentresp.name,
-                    time: eventresp.created_at,
+                    started: eventresp.created_at,
                     location: {longitude: eventresp.longitude, latitude: eventresp.latitude},
                     status: eventresp.status
                   }
