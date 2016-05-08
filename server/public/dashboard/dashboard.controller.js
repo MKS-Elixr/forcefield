@@ -13,8 +13,8 @@
     vm.emergencies = Emergencies.all()
     vm.map = {
       center: {
-        latitude: 30.266926,
-        longitude: -97.750519
+        latitude: 34.018344,
+        longitude: -118.491285
       },
       zoom: 14
     }
