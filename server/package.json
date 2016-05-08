@@ -19,7 +19,8 @@
   },
   "standard": {
     "globals": [
-      "angular"
+      "angular",
+      "io"
     ],
     "ignore": [
       "bower_components"
