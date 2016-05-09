@@ -51,7 +51,7 @@
 
     function closeEmergency (emergency) {
       var confirm = $mdDialog.confirm()
-        .title('Are you sure you want to close this emergency?')
+        .title('Are you sure you want to set this emergency to inactive?')
         .ok('Close Emergency')
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
@@ -83,7 +83,7 @@
 
     function openEmergency (emergency) {
       var confirm = $mdDialog.confirm()
-        .title('Are you sure you want to open this emergency?')
+        .title('Are you sure you want to set this emergency to active?')
         .ok('Open Emergency')
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
