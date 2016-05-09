@@ -6,6 +6,7 @@ var server = require('http').Server(app)
 var io = require('socket.io')(server)
 // var knex = require('./db/schema.js').knex
 var sockethelper = require('./routes/sockethelper.js')
+var morgan = require('morgan')
 
 // var dummyData= require('./db/dummyData.js')
 
@@ -18,6 +19,7 @@ app.use(cors())
 
 app.use('/universities', require('./routes/routes.js'))
 
+app.use(morgan('dev'))
 module.exports = app
 
 // dummyData.makeStudents()
