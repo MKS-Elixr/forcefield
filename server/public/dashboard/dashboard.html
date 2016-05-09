@@ -63,13 +63,13 @@
   </div>
 
   <!-- Emergencies (Inactive) -->
-  <div layout="column" layout-gt-xs="row" ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies | orderBy: '-started'">
+  <div layout="column" class="inactiveEmergency" layout-gt-xs="row" ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies | orderBy: '-started'">
 
     <!-- Card Wrapper -->
     <md-card flex flex-gt-xs="30">
 
       <!-- Emergency ID -->
-      <h2>Emergency {{emergency.uniqueID}}</h2>
+      <h2>Emergency {{emergency.uniqueID}} (INACTIVE)</h2>
 
       <!-- Emergency Informaton -->
       <md-card-content>
