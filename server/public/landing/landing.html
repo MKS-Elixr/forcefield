@@ -1,8 +1,17 @@
-<div>
-  <h1>Jubilant Umbrella</h1>
-  <form>
-    Email <input type="text" name="email" ng-model="email" placeholder="john@doe.com">
-    Password <input type="password" name="password" ng-model="password" placeholder="PassWord123">
-    <button ng-click="landing.signIn()">Sign In</button>
-    <button ng-click="landing.signUp()">Sign Up</button>
+<div align="center" class="loginContainer">
+  <h1>Officer Dashboard</h1>
+  <md-card align="center" flex flex-gt-xs="30">
+    <div layout="column" layout-padding>
+      <md-content class="autoScroll">
+        <h1>Sign In</h1>
+        <md-input-container md-no-float class="md-block">
+          <input ng-model="landing.email" type="text" placeholder="Email">
+        </md-input-container>
+        <md-input-container md-no-float class="md-block">
+          <input ng-model="landing.password" type="password" placeholder="Password">
+        </md-input-container>
+      </md-content>
+      <md-button ng-click="landing.signIn()" class="md-raised">Sign In</md-button>
+    </div>
+  </md-card>
 </div>
