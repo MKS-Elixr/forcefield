@@ -31,10 +31,10 @@
     function activate () {
       Socket.on('newEmergency', function (emergency) {
         // Data Server Should Provide (But Doesn't)
+        emergency.uniqueID = 'TEST1'
         emergency.active = true
         emergency.name = 'Mock Data'
-        emergency.phone = '012.345.6789'
-
+        emergency.phone = '012-345-6789'
         Emergencies.add(emergency)
       })
     }
@@ -60,11 +60,13 @@
     }
 
     function fakeEmergency () {
+      var randomNum1 = (Math.floor((Math.random() * 100000) + 1)).toString()
+      var randomNum2 = (Math.floor((Math.random() * 100000) + 1)).toString()
       Socket.emit('buttonPress', {
-        email: 'fake@email.xxo',
+        email: 'test' + randomNum1 + '@email.com',
         location: {
-          latitude: '50.4932021',
-          longitude: '50.431290421'
+          latitude: '34.01' + randomNum1,
+          longitude: '-118.49' + randomNum2
         }
       })
     }

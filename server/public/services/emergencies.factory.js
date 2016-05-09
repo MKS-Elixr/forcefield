@@ -16,7 +16,7 @@
           latitude: 34.018344,
           longitude: -118.491285
         },
-        active: true
+        active: false
       },
       {
         uniqueID: '32T',
@@ -27,7 +27,7 @@
           latitude: 34.017452,
           longitude: -118.490183
         },
-        active: true
+        active: false
       },
       {
         uniqueID: '58Z',
@@ -38,7 +38,7 @@
           latitude: 34.018439,
           longitude: -118.488184
         },
-        active: true
+        active: false
       },
       {
         uniqueID: '09F',
@@ -49,7 +49,7 @@
           latitude: 34.019441,
           longitude: -118.491182
         },
-        active: true
+        active: false
       }
     ]
 
