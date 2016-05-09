@@ -31,10 +31,10 @@
     function activate () {
       Socket.on('newEmergency', function (emergency) {
         // Data Server Should Provide (But Doesn't)
+        emergency.uniqueID = 'TEST1'
         emergency.active = true
         emergency.name = 'Mock Data'
-        emergency.phone = '012.345.6789'
-
+        emergency.phone = '012-345-6789'
         Emergencies.add(emergency)
       })
     }
