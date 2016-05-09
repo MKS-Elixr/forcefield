@@ -1,123 +1,112 @@
-var express = require('express')
-var bodyParser = require('body-parser')
+// Require Dependencies Alphabetically
 var app = require('express')()
+var bodyParser = require('body-parser')
 var cors = require('cors')
-var server = require('http').Server(app)
-var io = require('socket.io')(server)
-// var knex = require('./db/schema.js').knex
-var sockethelper = require('./routes/sockethelper.js')
+var express = require('express')
 var morgan = require('morgan')
+var server = require('http').Server(app)
+var sockethelper = require('./routes/sockethelper.js')
 
-// var dummyData= require('./db/dummyData.js')
+// Require Dependencies Non Alphabetically
+var io = require('socket.io')(server)
 
-app.use(bodyParser.urlencoded({ extended: true }))
-
+// Use Body Parser
 app.use(bodyParser.json())
-app.use('', express.static('./public'))
+app.use(bodyParser.urlencoded({extended: true}))
 
+// Use CORS
 app.use(cors())
 
+// Use Morgan
+app.use(morgan('dev'))
+
+// Serve Public Directory as Root
+app.use('', express.static('./public'))
+
+// Setup Routes
 app.use('/universities', require('./routes/routes.js'))
 
-app.use(morgan('dev'))
-module.exports = app
+// Initialize Server
+server.listen(process.env.PORT || 8080)
 
-// dummyData.makeStudents()
-// dummyData.makeEvents()
-// dummyData.makeSchools()
-// dummyData.makeStudentEvents()
-// dummyData.makeSchoolStudentEvents()
-
-var port = process.env.PORT || 8080
-
-// app.listen(port, function () {
-//   console.log('The server is available at http://localhost:' + port)
-// })
-
-server.listen(port)
-
+// Listen for Socket Connections
 io.on('connection', function (socket) {
   console.log('New Connection')
-  socket.on('buttonPress', function (data) {
-    console.log('Button Press:', data)
 
-    // insert that into yo databases (format provided)
-    var studentid
-    var studentname
+  // Listen for Button Presses
+  socket.on('buttonPress', function (data) {
+    console.log('Button Pressed')
+
     var eventid
     var eventtime
+    var studentid
+    var studentname
+
     sockethelper.getStudentInfo(data.email).then(function (response) {
-      console.log('this is response from studentinfo', response)
       response.forEach(function (currentEl) {
         studentid = currentEl.ID
       })
       return studentid
     }).then(function () {
-      console.log('chain continued 2nd')
       sockethelper.getStudentInfo(data.email).then(function (response) {
         response.forEach(function (currentEl) {
           studentname = currentEl.name
         })
-        console.log(studentname)
         return studentname
       })
-    })
-      .then(function () {
-        console.log('inside .then before check all events')
-        sockethelper.checkAllEvents(data.location.longitude, data.location.latitude).then(function (response) {
-          console.log('this is response', response)
-          if (response.length !== 0) {
-            console.log('event already exist insertion failed')
-          } else {
-            sockethelper.insertEvent(data.location.longitude, data.location.latitude).then(function (response) {
-              console.log('inside insertEvent, new event inserted', response)
-              eventid = response
-              return eventid
+    }).then(function () {
+      sockethelper.checkAllEvents(data.location.longitude, data.location.latitude).then(function (response) {
+        if (response.length !== 0) {
+        } else {
+          sockethelper.insertEvent(data.location.longitude, data.location.latitude).then(function (response) {
+            eventid = response
+            return eventid
+          }).then(function (resp) {
+            sockethelper.getEventTime(resp).then(function (response) {
+              eventtime = response
+              return eventtime
+            })
+          }).then(function (resp) {
+            sockethelper.insertIntoStudentEvents(studentid, eventid).then(function (response) {
+              var data = {
+                eventid: eventid[0],
+                studentname: studentname,
+                eventtime: eventtime[0]
+              }
+              return data
             }).then(function (resp) {
-              sockethelper.getEventTime(resp).then(function (response) {
-                eventtime = response
-                console.log('this is eventtime', eventtime)
-                return eventtime
-              })
-            }).then(function (resp) {
-              console.log('chain continued', eventid)
-              sockethelper.insertIntoStudentEvents(studentid, eventid).then(function (response) {
-                var data = {
-                  eventid: eventid[0],
-                  studentname: studentname,
-                  eventtime: eventtime[0]
-                }
-                console.log('last chain', data)
-                return data
-              }).then(function (resp) {
-                socket.emit('newEmergency', {
-                  id: resp.eventid,
-                  by: resp.studentname,
-                  started: resp.eventtime.created_at,
-                  location: data.location,
-                  status: 'active'
-                })
+              console.log('Emitting a New Emergency')
+
+              socket.emit('newEmergency', {
+                id: resp.eventid,
+                by: resp.studentname,
+                started: resp.eventtime.created_at,
+                location: data.location,
+                status: 'active'
               })
             })
-          }
-        })
+          })
+        }
       })
+    })
   })
 
+  // Listen for Movement
   io.on('movement', function (data) {
+    console.log('Movement Detected')
+
     var studentid
 
     sockethelper.matchEmail(data.email).then(function (response) {
-      console.log('this is data.email', data.email)
       response.forEach(function (currentEl) {
         studentid = currentEl.ID
       })
-      console.log('this is studentid', studentid)
       return studentid
     }).then(function (resp) {
       sockethelper.updateStudentLocation(resp, data.location.longitude, data.location.latitude).then(function (response) {
-        console.log('student location updated')
       })
     })
   })
 })
+
+module.exports = app
