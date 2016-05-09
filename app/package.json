@@ -40,6 +40,7 @@
       "ble",
       "Camera",
       "cordova",
+      "io",
       "StatusBar"
     ],
     "ignore": [
