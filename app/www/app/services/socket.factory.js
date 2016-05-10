@@ -6,6 +6,8 @@
     .factory('Socket', Socket)
 
   function Socket (socketFactory) {
-    return socketFactory()
+    return socketFactory({
+      ioSocket: io.connect('http://jubilant-umbrella.herokuapp.com')
+    })
   }
 })()
