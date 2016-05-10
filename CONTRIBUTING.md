@@ -20,11 +20,11 @@ Github has a built in issue tracking system that's pretty awesome! You can label
 If you have any feedback (a bug report, feature request, etcetera) utilize Github Issues as opposed to something like Slack or Waffle. This allows us to keep track of everything more efficiently.
 
 ## Github Workflow
-For the most part, we follow [Github's recommended workflow](https://guides.github.com/introduction/flow/) with a shared repository model. This meant branching off from master, committing some code, and submitting a pull request back to master for code review. As a side note, do not rewrite history and then force push into the main repository or its branches.
+For the most part, we follow [Github's recommended workflow](https://guides.github.com/introduction/flow/) with a shared repository model. This means branching off from master, committing some code, and submitting a pull request back to master for code review. As a side note, do not rewrite history and then force push into the main repository or any shared branches.
 
 ### Branching
 
-You should almost always [create a feature branch](https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches) when working on something new. The branch should originate from master, and include a few dash separated words (without prefixes) as to what you're working on. For instance, the following are all good examples of what to do:
+You should almost always [create a feature branch](https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches) when working on something new. This branch should originate from master, and include a few dash separated words (without prefixes) as to what you're working on. For instance, the following are all good examples of what to do:
 
 - `improve-database-schema`
 - `refactor-authentication`
@@ -41,7 +41,7 @@ Branches should never involve more than one feature or fix, and should include a
 As soon as you feel like a feature or fix is ready, [create a pull request](https://help.github.com/articles/using-pull-requests/). Doing so immediately means others are aware of your changes, and avoids large merge conflicts later on. When a pull request is merged into master by somebody else, it should be [pulled into your feature branch as quickly as possible using rebase](https://medium.com/@porteneuve/getting-solid-at-git-rebase-vs-merge-4fa1a48c53aa). Your branch's history should never have any merge commits; try to keep the history as clean as possible by [using rebase to fast forward and replay commits from master on top of your branch](http://nathanleclaire.com/blog/2014/09/14/dont-be-scared-of-git-rebase/).
 
 ### Committing
-For commit messages, try to stick with [these guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html). This mainly means keeping your commit messages short (no prefixes) and in the imperative (update instead of updates or updated, etcetera). Commit messages should also be uppercased (unless referencing a specific library name, tool, etcetera) and not include punctuation. Avoid saying you updated, added, modified, or otherwise did something to a file. Instead, say specifically (but briefly) what you did to that file or what you accomplished by changing it. Only include commit descriptions if absolutely necessary, and when you do format them using markdown.  
+For commit messages, try to stick with [these guidelines](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html). This mainly means keeping your commit messages short (no prefixes) and in the imperative (update instead of updates or updated, etcetera). Commit messages should also be capitilized (unless referencing a specific library name, tool, etcetera) and not include punctuation. Avoid saying you updated, added, modified, or otherwise did something to a file. Instead, say specifically (but briefly) what you did to that file or what you accomplished by changing it. Only include commit descriptions if absolutely necessary, and when you do format them using markdown.  
 
 These are  examples of good commit messages:
 
@@ -56,4 +56,4 @@ while these are not:
 
 Your commits should be concise and clear. Someone else should be able to follow the steps you took to implement something by simply viewing your commits. This means they should be in a logical order (don't switch between working on different features in the same branch).
 
-If things get messy, don't be afraid to use git rebase. If you're unfamiliar with it, there are [several](https://help.github.com/articles/about-git-rebase/) [great](https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history) [guides](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) available to you. Just don't force push or rewrite everyone's history!
+If things get messy, don't be afraid to use git rebase. If you're unfamiliar with it, there are [several](https://help.github.com/articles/about-git-rebase/) [great](https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history) [guides](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History) available to you. Just don't force push or rewrite anyone's history!
