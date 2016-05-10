@@ -2,5 +2,5 @@
   'use strict'
 
   angular
-    .module('jubilant-umbrella.core', ['ionic', 'ngCordova', 'ngStorage'])
+    .module('jubilant-umbrella.core', ['ionic', 'btford.socket-io', 'ngCordova', 'ngStorage'])
 })()

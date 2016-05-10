@@ -28,7 +28,8 @@
     {
       "locator": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git",
       "id": "cordova-plugin-inappbrowser"
-    }
+    },
+    "cordova-custom-config"
   ],
   "cordovaPlatforms": [
     "ios"
@@ -36,8 +37,10 @@
   "standard": {
     "globals": [
       "angular",
+      "ble",
       "Camera",
       "cordova",
+      "io",
       "StatusBar"
     ],
     "ignore": [
