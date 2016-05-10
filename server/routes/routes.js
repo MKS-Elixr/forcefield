@@ -14,8 +14,8 @@ router.get('/', function (req, res) {
   })
 })
 
-router.get('/makersquare/students', function (req, res) {
-  var schoolname = req.headers.schoolname
+router.get('/:school/students', function (req, res) {
+  var schoolname = req.params.school
   var schoolid
   // var studentid
   console.log('students hiiii')
@@ -36,8 +36,8 @@ router.get('/makersquare/students', function (req, res) {
   })
 })
 
-router.get('/makersquare/emergencies', function (req, res) {
-  var schoolname = req.headers.schoolname
+router.get('/:school/emergencies', function (req, res) {
+  var schoolname = req.params.school
   var schoolid
   var studentid = []
   var eventsid = []
