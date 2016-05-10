@@ -4,15 +4,19 @@
   <!-- Content Wrapper -->
   <ion-content>
 
-    <!-- User Form -->
-    <form>
-      <ion-list>
+    <!-- Padding -->
+    <div class="padding">
 
-        <!-- Full Name Input -->
-        <label class="item item-input item-stacked-label">
-          <span class="input-label">Full Name</span>
-          <input ng-model="landing.account.name" type="text" placeholder="John Doe">
-        </label>
+      <!-- Sign In & Up Buttons -->
+      <div class="button-bar">
+        <a ng-click="landing.newUser = false" ng-class="{'active': !landing.newUser}" class="button">Sign In</a>
+        <a ng-click="landing.newUser = true" ng-class="{'active': landing.newUser}" class="button">Sign Up</a>
+      </div>
+    </div>
+
+    <!-- Sign In Form -->
+    <form ng-if="landing.newUser === false">
+      <ion-list>
 
         <!-- Email Input -->
         <label class="item item-input item-stacked-label">
@@ -28,10 +32,52 @@
       </ion-list>
     </form>
 
-    <!-- Sign In & Up Buttons -->
+    <!-- Sign Up Form -->
+    <form ng-if="landing.newUser === true">
+      <ion-list>
+
+        <!-- Full Name Input -->
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Full Name</span>
+          <input ng-model="landing.account.name" type="text" placeholder="John Doe">
+        </label>
+
+        <!-- Email Input -->
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Email</span>
+          <input ng-model="landing.account.email" type="text" placeholder="john@doe.com">
+        </label>
+
+        <!-- Phone Input -->
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Phone</span>
+          <input ng-model="landing.account.phone" type="tel" placeholder="012.345.6789">
+        </label>
+
+        <!-- Password Input -->
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Password</span>
+          <input ng-model="landing.account.password" type="password" placeholder="PassWord123">
+        </label>
+      </ion-list>
+
+      <!-- School Selector -->
+      <label class="item item-input item-select">
+        <div class="input-label">School</div>
+        <select>
+          <option disabled value selected></option>
+          <option>UCLA</option>
+          <option>MakerSquare</option>
+          <option>Mizzou</option>
+        </select>
+      </label>
+    </form>
+
+    <!-- Padding -->
     <div class="padding">
-      <button ng-click="landing.signIn()" class="button button-block button-stable">Sign In</button>
-      <button ng-click="landing.signUp()" class="button button-block button-stable">Sign Up</button>
+
+      <!-- Submit Button -->
+      <button ng-click="landing.authenticate()" class="button button-block">Submit</button>
     </div>
   </ion-content>
 </ion-view>

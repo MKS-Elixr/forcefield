@@ -11,20 +11,17 @@
 
     // Variables
     vm.account = {}
-    vm.account.password
     vm.account.email
     vm.account.name
+    vm.account.password
+    vm.account.phone
+    vm.newUser = false
 
     // Functions
-    vm.signIn = signIn
-    vm.signUp = signUp
+    vm.authenticate = authenticate
 
     // Implementation Details
-    function signIn () {
-      $state.go('tab.dashboard')
-    }
-
-    function signUp () {
+    function authenticate () {
       $state.go('tab.dashboard')
     }
   }
