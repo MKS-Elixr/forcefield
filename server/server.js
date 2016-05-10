@@ -77,7 +77,7 @@ io.on('connection', function (socket) {
             }).then(function (resp) {
               console.log('Emitting a New Emergency')
 
-              socket.broadcast.emit('newEmergency', {
+              io.sockets.emit('newEmergency', {
                 id: resp.eventid,
                 by: resp.studentname,
                 started: resp.eventtime.created_at,
