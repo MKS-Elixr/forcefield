@@ -72,8 +72,11 @@ router.get('/:school/emergencies', function (req, res) {
         }).then(function (resp) {
           helper.joinStudentEvent(resp).then(function (response) {
             console.log('this is join response', response)
+            response.forEach(function (currentEl) {
+              currentEl['location'] = {longitude: currentEl.longitude, latitude: currentEl.latitude}
+            })
             res.json({
-              response
+              data: response
             })
           })
         })
