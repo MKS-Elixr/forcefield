@@ -24,7 +24,7 @@ app.use(morgan('dev'))
 app.use('', express.static('./public'))
 
 // Setup Routes
-app.use('/universities', require('./routes/routes.js'))
+app.use('/schools', require('./routes/routes.js'))
 
 // Initialize Server
 server.listen(process.env.PORT || 8080)
