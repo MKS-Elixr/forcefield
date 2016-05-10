@@ -1,14 +1,22 @@
 <!-- View Wrapper -->
 <ion-view title="Settings">
 
+  <!-- Sign Out Button -->
+  <ion-nav-buttons side="right">
+    <button ng-click="settings.signOut()" class="button button-clear">Sign Out</button>
+  </ion-nav-buttons>
+
   <!-- Content Wrapper -->
   <ion-content>
 
-    <!-- Padding -->
+    <!-- Scan Button -->
     <div class="padding">
-
-      <!-- Sign Out Button -->
-      <button ng-click="settings.signOut()" class="button button-block button-stable">Sign Out</button>
+      <button ng-click="settings.scan()" class="button button-block button-stable">Scan</button>
     </div>
+
+    <!-- Bluetooth Devices -->
+    <ion-list>
+      <ion-item ng-click="settings.connect(device)" ng-repeat="device in settings.devices" ng-if="device.name">{{device.name}}</ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
