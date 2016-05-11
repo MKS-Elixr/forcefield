@@ -36,7 +36,6 @@ knex.schema.createTableIfNotExists('events', function (table) {
   table.string('imgurl')
   table.string('longitude')
   table.string('latitude')
-  table.timestamp('ended').defaultTo(null)
   table.integer('sid')
 }).then(function () {
   knex.schema.table('events', function (table) {
