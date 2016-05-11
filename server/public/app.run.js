@@ -7,6 +7,6 @@
 
   function run ($state) {
     // Load Dashboard Page
-    $state.go('dashboard')
+    $state.go('landing')
   }
 })()

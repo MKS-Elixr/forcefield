@@ -49,3 +49,13 @@ html, body {
 .inactiveEmergency {
   color: gray;
 }
+
+.loginContainer {
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  overflow-y:hidden;
+  overflow-x:auto; 
+}
