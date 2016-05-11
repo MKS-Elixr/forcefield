@@ -153,7 +153,7 @@ function joinStudentEvent (studentids) {
     .whereIn('se.created_by', studentids)
     .join('events as e', 'se.eid', '=', 'e.ID')
     .join('students as s', 'se.created_by', '=', 's.ID')
-    .select('s.name as by', 'e.created_at as started', 'e.longitude as longitude', 'e.latitude as latitude', 'e.active as active', 'e.ended as ended').then(function (resp) {
+    .select('s.name as by', 'e.created_at as started', 'e.longitude as longitude', 'e.latitude as latitude', 'e.status as status').then(function (resp) {
       console.log('this is joinStudentEvet', resp)
       return resp
     })

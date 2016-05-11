@@ -32,7 +32,7 @@ knex.schema.createTableIfNotExists('events', function (table) {
   table.timestamp('created_at').defaultTo(knex.fn.now())
   table.string('created_by')
   table.string('description')
-  table.boolean('active')
+  table.string('status')
   table.string('imgurl')
   table.string('longitude')
   table.string('latitude')
