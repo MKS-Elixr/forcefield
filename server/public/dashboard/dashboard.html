@@ -9,7 +9,7 @@
 
     <!-- Marker Label -->
     <ui-gmap-window show="true">
-      <div>{{marker.name}}</div>
+      <div>{{emergency.by}}</div> 
     </ui-gmap-window>
   </ui-gmap-marker>
 
@@ -21,7 +21,7 @@
 
     <!-- Marker Label -->
     <ui-gmap-window show="true">
-      <div>{{marker.name}}</div>
+      <div>{{emergency.by}}</div>
     </ui-gmap-window>
   </ui-gmap-marker>
 </ui-gmap-google-map>
@@ -53,11 +53,11 @@
     <md-card flex flex-gt-xs="30">
 
       <!-- Emergency ID -->
-      <h2>Emergency {{emergency.uniqueID}}</h2>
+      <h2>Emergency {{emergency.id}}</h2>
 
       <!-- Emergency Information -->
       <md-card-content>
-        <p>Name: {{emergency.name}}</p>
+        <p>Name: {{emergency.by}}</p>
         <p>Phone: {{emergency.phone}}</p>
         <p>Time: {{emergency.started | date: 'short'}}</p>
 
@@ -77,11 +77,11 @@
     <md-card flex flex-gt-xs="30">
 
       <!-- Emergency ID -->
-      <h2>Emergency {{emergency.uniqueID}}</h2>
+      <h2>Emergency {{emergency.id}}</h2>
 
       <!-- Emergency Informaton -->
       <md-card-content>
-        <p>Name: {{emergency.name}}</p>
+        <p>Name: {{emergency.by}}</p>
         <p>Phone: {{emergency.phone}}</p>
         <p>Time: {{emergency.started | date: 'short'}}</p>
 
