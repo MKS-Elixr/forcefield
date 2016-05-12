@@ -22,7 +22,7 @@
 
     // Implementation Details
     function authenticate () {
-      $state.go('tab.dashboard')
+      $state.go('dashboard')
     }
   }
 })()

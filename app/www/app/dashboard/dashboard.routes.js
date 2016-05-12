@@ -7,14 +7,10 @@
 
   function config ($stateProvider) {
     $stateProvider
-      .state('tab.dashboard', {
+      .state('dashboard', {
         url: '/dashboard',
-        views: {
-          'tab-dashboard': {
-            templateUrl: 'app/dashboard/dashboard.html',
-            controller: 'DashboardController as dashboard'
-          }
-        }
+        templateUrl: 'app/dashboard/dashboard.html',
+        controller: 'DashboardController as dashboard'
       })
   }
 })()
