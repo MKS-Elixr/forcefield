@@ -42,8 +42,8 @@
     function centerOn (emergency) {
       vm.map = {
         center: {
-          latitude: emergency.location.latitude,
-          longitude: emergency.location.longitude
+          latitude: emergency.locations[emergency.locations.length - 1].latitude,
+          longitude: emergency.locations[emergency.locations.length - 1].longitude
         },
         zoom: 18
       }
