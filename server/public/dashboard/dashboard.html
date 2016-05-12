@@ -2,7 +2,10 @@
 <ui-gmap-google-map center="dashboard.map.center" zoom="dashboard.map.zoom">
 
   <!-- Markers (Active) -->
-  <ui-gmap-marker ng-if="!dashboard.showInactive && marker.active" ng-repeat="marker in dashboard.emergencies" idKey="0" coords="marker.location">
+  <ui-gmap-marker ng-if="!dashboard.showInactive && emergency.active" ng-repeat="emergency in dashboard.emergencies" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
+
+    <!-- Movement Path (Active) -->
+    <ui-gmap-polyline ng-if="!dashboard.showInactive && emergency.active" path="emergency.locations" stroke="{color: '#6060FB', weight: 5, opacity: 0.6}"></ui-gmap-polylines>
 
     <!-- Marker Label -->
     <ui-gmap-window show="true">
@@ -11,7 +14,10 @@
   </ui-gmap-marker>
 
   <!-- Markers (Inactive) -->
-  <ui-gmap-marker ng-if="dashboard.showInactive && !marker.active" ng-repeat="marker in dashboard.emergencies" idKey="0" coords="marker.location">
+  <ui-gmap-marker ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
+
+    <!-- Movement Path (Inactive) -->
+    <ui-gmap-polyline ng-if="dashboard.showInactive && !emergency.active" path="emergency.locations" stroke="{color: '#6060FB', weight: 5, opacity: 0.6}"></ui-gmap-polylines></ui-gmap-polylines>
 
     <!-- Marker Label -->
     <ui-gmap-window show="true">
