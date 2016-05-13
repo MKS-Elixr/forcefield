@@ -21,6 +21,7 @@
   "standard": {
     "globals": [
       "angular",
+      "google",
       "io"
     ],
     "ignore": [
