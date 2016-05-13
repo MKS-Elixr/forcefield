@@ -17,15 +17,19 @@
         latitude: 34.018344,
         longitude: -118.491285
       },
-      zoom: 14
+      zoom: 14,
+      showHeat: false
     }
 
     // Functions
     vm.centerOn = centerOn
     vm.closeEmergency = closeEmergency
     vm.fakeEmergency = fakeEmergency
+    vm.heatLayer = heatLayer
+    vm.insertHeatLayer = insertHeatLayer
     vm.logout = logout
     vm.openEmergency = openEmergency
+    vm.toggleHeatMap = toggleHeatMap
 
     // Implementation Details
     function activate () {
@@ -40,13 +44,9 @@
     }
 
     function centerOn (emergency) {
-      vm.map = {
-        center: {
-          latitude: emergency.locations[emergency.locations.length - 1].latitude,
-          longitude: emergency.locations[emergency.locations.length - 1].longitude
-        },
-        zoom: 18
-      }
+      vm.map.center.latitude = emergency.locations[emergency.locations.length - 1].latitude
+      vm.map.center.longitude = emergency.locations[emergency.locations.length - 1].longitude
+      vm.map.zoom = 18
     }
 
     function closeEmergency (emergency) {
@@ -81,6 +81,22 @@
       })
     }
 
+    function heatLayer (heatLayer) {
+      var heatMapData = []
+      for (var i = 0; i < vm.emergencies.length; i++) {
+        var latitude = vm.emergencies[i].locations[0].latitude
+        var longitude = vm.emergencies[i].locations[0].longitude
+        heatMapData.push(new google.maps.LatLng(latitude, longitude))
+      }
+
+      var pointArray = new google.maps.MVCArray(heatMapData)
+      heatLayer.setData(pointArray)
+    }
+
+    function insertHeatLayer (layer) {
+      heatLayer(layer)
+    }
+
     function openEmergency (emergency) {
       var confirm = $mdDialog.confirm()
         .title('Are you sure you want to set this emergency to active?')
@@ -89,6 +105,14 @@
       $mdDialog.show(confirm).then(function () {
         Emergencies.open(emergency)
       })
+    }
+
+    function toggleHeatMap () {
+      if (vm.map.showHeatMap === false) {
+        vm.map.showHeatMap = true
+      } else {
+        vm.map.showHeatMap = false
+      }
     }
   }
 })()
