@@ -42,8 +42,8 @@
     function centerOn (emergency) {
       vm.map = {
         center: {
-          latitude: emergency.location.latitude,
-          longitude: emergency.location.longitude
+          latitude: emergency.locations[emergency.locations.length - 1].latitude,
+          longitude: emergency.locations[emergency.locations.length - 1].longitude
         },
         zoom: 18
       }
@@ -52,7 +52,7 @@
     function closeEmergency (emergency) {
       var confirm = $mdDialog.confirm()
         .title('Are you sure you want to set this emergency to inactive?')
-        .ok('Close Emergency')
+        .ok('Set Inactive')
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
         Emergencies.close(emergency)
@@ -84,7 +84,7 @@
     function openEmergency (emergency) {
       var confirm = $mdDialog.confirm()
         .title('Are you sure you want to set this emergency to active?')
-        .ok('Open Emergency')
+        .ok('Set Active')
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
         Emergencies.open(emergency)
