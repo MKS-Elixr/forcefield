@@ -1,16 +1,18 @@
-(function () {
+;(function () {
   'use strict'
   angular
     .module('jubilant-umbrella.landing')
     .controller('LandingController', LandingController)
 
-  function LandingController ($state) {
+  function LandingController (Authentication, $state) {
     // Initialization
     var vm = this
 
     // Variables
-    var email = null
-    var password = null
+    vm.email
+    vm.password
+    vm.phonenum
+    vm.name
 
     // Functions
     vm.signIn = signIn
@@ -18,13 +20,11 @@
 
     // Implementation Details
     function signIn () {
-      console.log(email, password)
-      $state.go('dashboard')
+      Authentication.signIn(vm.name, vm.password)
     }
 
     function signUp () {
-      console.log(email, password)
-      $state.go('dashboard')
+      Authentication.signUp(vm.email, vm.password, vm.phonenum, vm.name)
     }
   }
 })()
