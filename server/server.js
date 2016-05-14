@@ -35,28 +35,6 @@ app.use('/students', require('./routes/student-login-routes.js'))
 // Initialize Server
 server.listen(process.env.PORT || 8080)
 
-function getStudentsPassword (email) {
-  return new Promise(function (resolve, reject) {
-    knex('students')
-      .select('password')
-      .where('email', email)
-      .then(function (resp) {
-        resolve(resp)
-      })
-  })
-}
-
-function getStudentsEmail (email) {
-  return new Promise(function (resolve, reject) {
-    knex('students')
-      .select()
-      .where('email', email)
-      .then(function (resp) {
-        resolve(resp)
-      })
-  })
-}
-
 function getSchoolPassword (name) {
   return new Promise(function (resolve, reject) {
     knex('schools')
@@ -79,53 +57,7 @@ function getSchoolName (name) {
   })
 }
 
-app.post('/signup', function (req, res) {
-  var generateToken = jwt.sign({
-    email: req.body.email,
-    password: req.body.password,
-    phone: req.body.phone,
-    name: req.body.name
-  // school: req.body.school
-  }, process.env.TOKEN_SECRET)
-
-  getStudentsEmail(req.body.email).then(function (resp) {
-    if (resp.length === 0) {
-      console.log('about to add student')
-      knex('students').insert({email: req.body.email, password: req.body.password, phonenum: req.body.phone, name: req.body.name}).then(function (res) {})
-      res.json({success: true, generateToken: generateToken})
-    } else {
-      res.json({success: false})
-      console.log('Email Exists in ServerPost')
-    }
-  })
-})
-
-app.post('/signin', function (req, res) {
-  var generateToken = jwt.sign({
-    email: req.body.email,
-    password: req.body.password
-  }, process.env.TOKEN_SECRET)
-
-  getStudentsEmail(req.body.email).then(function (emailResp) {
-    console.log('emailResp ', emailResp)
-    console.log(emailResp.length)
-    if (emailResp.length === 0) {
-      res.json({success: false}).status(500)
-    } else {
-      getStudentsPassword(req.body.email).then(function (resp) {
-        console.log('getStudentsPassword', resp)
-        if (req.body.password === resp[0]['password']) {
-          console.log('resp at 0', resp[0])
-          res.json({success: true, generateToken: generateToken}).status(201)
-        } else {
-          res.json({success: false}).status(500)
-        }
-      })
-    }
-  })
-})
-
-app.post('/universities/signin', function (req, res) {
+app.post('/schools/signin', function (req, res) {
   var generateToken = jwt.sign({
     name: req.body.name,
     password: req.body.password
