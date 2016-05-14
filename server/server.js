@@ -6,6 +6,10 @@ var express = require('express')
 var morgan = require('morgan')
 var server = require('http').Server(app)
 var sockethelper = require('./routes/sockethelper.js')
+var jwt = require('jsonwebtoken')
+var knex = require('./db/schema.js').knex
+// var dotenv = require('dotenv').config()
+// var secret = process.env.TOKEN_SECRET
 
 // Require Dependencies Non Alphabetically
 var io = require('socket.io')(server)
@@ -25,9 +29,58 @@ app.use('', express.static('./public'))
 
 // Setup Routes
 app.use('/schools', require('./routes/routes.js'))
+app.use('/universities', require('./routes/login-routes.js'))
+app.use('/students', require('./routes/student-login-routes.js'))
 
 // Initialize Server
 server.listen(process.env.PORT || 8080)
+
+function getSchoolPassword (name) {
+  return new Promise(function (resolve, reject) {
+    knex('schools')
+      .select('password')
+      .where('name', name)
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
+
+function getSchoolName (name) {
+  return new Promise(function (resolve, reject) {
+    knex('schools')
+      .select()
+      .where('name', name)
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
+
+app.post('/schools/signin', function (req, res) {
+  var generateToken = jwt.sign({
+    name: req.body.name,
+    password: req.body.password
+  }, process.env.TOKEN_SECRET)
+
+  getSchoolName(req.body.name).then(function (nameResp) {
+    console.log('nameResp ', nameResp)
+    console.log(nameResp.length)
+    if (nameResp.length === 0) {
+      res.json({success: false}).status(500)
+    } else {
+      getSchoolPassword(req.body.name).then(function (resp) {
+        console.log('getStudentsPassword', resp)
+        if (req.body.password === resp[0]['password']) {
+          console.log('resp at 0', resp[0])
+          res.json({success: true, generateToken: generateToken}).status(201)
+        } else {
+          res.json({success: false}).status(500)
+        }
+      })
+    }
+  })
+})
 
 // Listen for Socket Connections
 io.on('connection', function (socket) {
@@ -103,8 +156,7 @@ io.on('connection', function (socket) {
       })
       return studentid
     }).then(function (resp) {
-      sockethelper.updateStudentLocation(resp, data.location.longitude, data.location.latitude).then(function (response) {
-      })
+      sockethelper.updateStudentLocation(resp, data.location.longitude, data.location.latitude).then(function (response) {})
     })
   })
 })
