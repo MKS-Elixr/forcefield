@@ -1,6 +1,9 @@
 <!-- Map -->
 <ui-gmap-google-map center="dashboard.map.center" zoom="dashboard.map.zoom">
 
+  <!-- Heatmap Layer -->
+  <ui-gmap-layer namespace="visualization" type="HeatmapLayer" show="dashboard.map.showHeatMap" onCreated="dashboard.insertHeatLayer"></ui-gmap-layer>
+
   <!-- Markers (Active) -->
   <ui-gmap-marker ng-if="!dashboard.showInactive && emergency.active" ng-repeat="emergency in dashboard.emergencies" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
 
@@ -37,6 +40,11 @@
   <!-- Logout Button -->
   <div align="right">
     <md-button class="md-raised" ng-click="dashboard.logout()">Logout</md-button>
+  </div>
+
+  <!-- Heatmap Toggle -->
+  <div align="right">
+    <md-button class="md-raised" ng-click="dashboard.toggleHeatMap()">Toggle Heatmap</md-button>
   </div>
 
   <!-- Fake Emergency Button (For Debugging)-->
