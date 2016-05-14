@@ -1,3 +1,19 @@
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 @import "www/lib/ionic/scss/ionic";
+
+.slider {
+  background-color: $assertive;
+  height: 100%;
+}
+
+.slider h1, h2 {
+  color: $stable;
+  text-align: center;
+}
+
+.spinner {
+  display: block;
+  margin: auto;
+  text-align: center;
+}
