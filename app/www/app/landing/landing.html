@@ -3,7 +3,7 @@
 
     <!-- Introduction -->
     <ion-slide>
-      <div class="padding">
+      <div class="center-vertically padding">
         <h1>How it Works</h1>
         <br>
         <h2>You press the button.</h2>
@@ -18,7 +18,7 @@
 
     <!-- Pairing -->
     <ion-slide>
-      <div class="padding">
+      <div class="center-vertically padding">
         <h1>Pair Your Device</h1>
         <br>
         <h2>Hold down the button for about ten seconds.</h2>
@@ -34,83 +34,84 @@
 
     <!-- Account -->
     <ion-slide>
-
-      <!-- Sign In & Up Buttons -->
-      <div class="padding">
-        <h1>One More Thing</h1>
-        <br>
-        <div class="button-bar">
-          <a class="button" ng-class="{'active': !landing.newUser}" ng-click="landing.newUser = false">Sign In</a>
-          <a class="button" ng-class="{'active': landing.newUser}" ng-click="landing.newUser = true">Sign Up</a>
+      <div class="center-vertically">
+        <!-- Sign In & Up Buttons -->
+        <div class="padding">
+          <h1>One More Thing</h1>
+          <br>
+          <div class="button-bar">
+            <a class="button" ng-class="{'active': !landing.newUser}" ng-click="landing.newUser = false">Sign In</a>
+            <a class="button" ng-class="{'active': landing.newUser}" ng-click="landing.newUser = true">Sign Up</a>
+          </div>
         </div>
-      </div>
 
-      <!-- Sign In Form -->
-      <div class="padding">
-        <form ng-if="landing.newUser === false">
-          <ion-list class="card">
+        <!-- Sign In Form -->
+        <div class="padding">
+          <form ng-if="landing.newUser === false">
+            <ion-list class="card">
 
-            <!-- Email Input -->
-            <label class="item item-input">
-              <span class="input-label">Email</span>
-              <input ng-model="landing.account.email" type="text" placeholder="john@doe.com">
+              <!-- Email Input -->
+              <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input ng-model="landing.account.email" type="text" placeholder="john@doe.com">
+              </label>
+
+              <!-- Password Input -->
+              <label class="item item-input">
+                <span class="input-label">Password</span>
+                <input ng-model="landing.account.password" type="password" placeholder="PassWord123">
+              </label>
+            </ion-list>
+          </form>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div class="padding">
+          <form ng-if="landing.newUser">
+            <ion-list class="card">
+
+              <!-- Full Name -->
+              <label class="item item-input">
+                <span class="input-label">Full Name</span>
+                <input ng-model="landing.account.name" type="text" placeholder="John Doe">
+              </label>
+
+              <!-- Email -->
+              <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input ng-model="landing.account.email" type="text" placeholder="john@doe.com">
+              </label>
+
+              <!-- Phone -->
+              <label class="item item-input">
+                <span class="input-label">Phone</span>
+                <input ng-model="landing.account.phone" type="tel" placeholder="012.345.6789">
+              </label>
+
+              <!-- Password -->
+              <label class="item item-input">
+                <span class="input-label">Password</span>
+                <input ng-model="landing.account.password" type="password" placeholder="PassWord123">
+              </label>
+            </ion-list>
+
+            <!-- School Selector -->
+            <label class="item item-input item-select">
+              <span class="input-label">School</span>
+              <select dir="ltr" ng-model="landing.account.school">
+                <option disabled selected value>Name</option>
+                <option>UCLA</option>
+                <option>MakerSquare</option>
+                <option>Mizzou</option>
+              </select>
             </label>
+          </form>
+        </div>
 
-            <!-- Password Input -->
-            <label class="item item-input">
-              <span class="input-label">Password</span>
-              <input ng-model="landing.account.password" type="password" placeholder="PassWord123">
-            </label>
-          </ion-list>
-        </form>
-      </div>
-
-      <!-- Sign Up Form -->
-      <div class="padding">
-        <form ng-if="landing.newUser">
-          <ion-list class="card">
-
-            <!-- Full Name -->
-            <label class="item item-input">
-              <span class="input-label">Full Name</span>
-              <input ng-model="landing.account.name" type="text" placeholder="John Doe">
-            </label>
-
-            <!-- Email -->
-            <label class="item item-input">
-              <span class="input-label">Email</span>
-              <input ng-model="landing.account.email" type="text" placeholder="john@doe.com">
-            </label>
-
-            <!-- Phone -->
-            <label class="item item-input">
-              <span class="input-label">Phone</span>
-              <input ng-model="landing.account.phone" type="tel" placeholder="012.345.6789">
-            </label>
-
-            <!-- Password -->
-            <label class="item item-input">
-              <span class="input-label">Password</span>
-              <input ng-model="landing.account.password" type="password" placeholder="PassWord123">
-            </label>
-          </ion-list>
-
-          <!-- School Selector -->
-          <label class="item item-input item-select">
-            <span class="input-label">School</span>
-            <select dir="ltr" ng-model="landing.account.school">
-              <option disabled selected value>Name</option>
-              <option>UCLA</option>
-              <option>MakerSquare</option>
-              <option>Mizzou</option>
-            </select>
-          </label>
-        </form>
-      </div>
-
-      <!-- Submit Button -->
-      <div class="padding">
-        <button class="button button-block" ng-click="landing.authenticate()">You're Done!</button>
+        <!-- Submit Button -->
+        <div class="padding">
+          <button class="button button-block" ng-click="landing.authenticate()">You're Done!</button>
+        </div>
       </div>
     </ion-slide>
   </ion-slide-box>
