@@ -41,7 +41,6 @@
       "Camera",
       "cordova",
       "io",
-      "Socket",
       "StatusBar"
     ],
     "ignore": [
