@@ -14,7 +14,6 @@
 
     // Functions
     vm.signIn = signIn
-    vm.signUp = signUp
 
     // Implementation Details
     function signIn () {
