@@ -1,4 +1,4 @@
-;(function () {
+(function () {
   'use strict'
   angular
     .module('jubilant-umbrella.landing')
@@ -9,9 +9,7 @@
     var vm = this
 
     // Variables
-    vm.email
     vm.password
-    vm.phonenum
     vm.name
 
     // Functions
@@ -21,10 +19,6 @@
     // Implementation Details
     function signIn () {
       Authentication.signIn(vm.name, vm.password)
-    }
-
-    function signUp () {
-      Authentication.signUp(vm.email, vm.password, vm.phonenum, vm.name)
     }
   }
 })()
