@@ -50,12 +50,29 @@ html, body {
   color: gray;
 }
 
-.loginContainer {
-  top:0;
+.login-container {
+  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   margin: auto;
   overflow-y:hidden;
   overflow-x:auto; 
+}
+
+.checkboxes {
+  margin-top: 20px;
+  padding-left: 8px;
+}
+
+.heatmap-toggle {
+  padding-left: 20px;
+}
+
+.logout-btn {
+  left: 82px;
+}
+
+.search {
+  height: 20px;
 }

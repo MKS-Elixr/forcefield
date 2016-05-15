@@ -20,6 +20,7 @@
       zoom: 14,
       showHeat: false
     }
+    vm.showActive = true
 
     // Functions
     vm.centerOn = centerOn
@@ -29,7 +30,6 @@
     vm.insertHeatLayer = insertHeatLayer
     vm.logout = logout
     vm.openEmergency = openEmergency
-    vm.toggleHeatMap = toggleHeatMap
 
     // Implementation Details
     function activate () {
@@ -105,14 +105,6 @@
       $mdDialog.show(confirm).then(function () {
         Emergencies.open(emergency)
       })
-    }
-
-    function toggleHeatMap () {
-      if (vm.map.showHeatMap === false) {
-        vm.map.showHeatMap = true
-      } else {
-        vm.map.showHeatMap = false
-      }
     }
   }
 })()

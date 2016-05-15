@@ -2,13 +2,13 @@
 <ui-gmap-google-map center="dashboard.map.center" zoom="dashboard.map.zoom">
 
   <!-- Heatmap Layer -->
-  <ui-gmap-layer namespace="visualization" type="HeatmapLayer" show="dashboard.map.showHeatMap" onCreated="dashboard.insertHeatLayer"></ui-gmap-layer>
+  <ui-gmap-layer namespace="visualization" type="HeatmapLayer" show="dashboard.showHeatMap" onCreated="dashboard.insertHeatLayer"></ui-gmap-layer>
 
   <!-- Markers (Active) -->
-  <ui-gmap-marker ng-if="!dashboard.showInactive && emergency.active" ng-repeat="emergency in dashboard.emergencies" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
+  <ui-gmap-marker ng-if="dashboard.showActive && emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
 
     <!-- Movement Path (Active) -->
-    <ui-gmap-polyline ng-if="!dashboard.showInactive && emergency.active" path="emergency.locations" stroke="{color: '#6060FB', weight: 5, opacity: 0.6}"></ui-gmap-polylines>
+    <ui-gmap-polyline ng-if="dashboard.showActive && emergency.active" path="emergency.locations" stroke="{color: '#6060FB', weight: 5, opacity: 0.6}"></ui-gmap-polylines>
 
     <!-- Marker Label -->
     <ui-gmap-window show="true">
@@ -17,7 +17,7 @@
   </ui-gmap-marker>
 
   <!-- Markers (Inactive) -->
-  <ui-gmap-marker ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
+  <ui-gmap-marker ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
 
     <!-- Movement Path (Inactive) -->
     <ui-gmap-polyline ng-if="dashboard.showInactive && !emergency.active" path="emergency.locations" stroke="{color: '#6060FB', weight: 5, opacity: 0.6}"></ui-gmap-polylines></ui-gmap-polylines>
@@ -32,30 +32,29 @@
 <!-- List of Emergencies (Right Side) -->
 <md-content class="md-padding" id="alert_container">
 
-  <!-- Toggle Emergencies (Active or Inactive) -->
-  <div class="emergencyToggle">
-    <md-switch ng-init="dashboard.showInactive = false" ng-model="dashboard.showInactive" class="md-primary" md-no-ink>Show Inactive Emergencies</md-switch>
-  </div>
+  <!-- People Search -->
+  <md-input-container md-no-autogrow="true" class="search">
+    <input type="text" ng-model="searchText" placeholder="Person or Emergency ID">
+  </md-input-container>
 
-  <!-- Logout Button -->
-  <div align="right">
-    <md-button class="md-raised" ng-click="dashboard.logout()">Logout</md-button>
-  </div>
+    <!-- Logout Button -->
+    <md-button class="md-raised logout-btn" ng-click="dashboard.logout()">Logout</md-button>
+    <div layout="row">
+      <div flex="50" class="checkboxes">
+   
+        <!-- Toggle Emergencies (Active) -->
+        <md-checkbox class="md-primary" ng-model="dashboard.showActive" aria-label="Active">Active</md-checkbox>
+      
+        <!-- Toggle Emergencies (Inactive) -->
+        <md-checkbox class="md-primary" ng-model="dashboard.showInactive" aria-label="Inactive">Inactive</md-checkbox>
+      </div>
 
-  <!-- Heatmap Toggle -->
-  <div align="right">
-    <md-button class="md-raised" ng-click="dashboard.toggleHeatMap()">Toggle Heatmap</md-button>
-  </div>
-
-  <!-- Fake Emergency Button (For Debugging)-->
-  <!--
-  <div alight="right">
-    <md-button class="md-raised" ng-click="dashboard.fakeEmergency()">Fake Emergency</md-button>
-  </div>
-  -->
+      <!-- Heatmap Toggle -->
+      <md-switch ng-init="dashboard.showHeatMap = false" ng-model="dashboard.showHeatMap" class="md-primary heatmap-toggle" md-no-ink>Show Heat Map</md-switch>
+    </div>
 
   <!-- Emergencies (Active) -->
-  <div layout="column" layout-gt-xs="row" ng-if="!dashboard.showInactive && emergency.active" ng-repeat="emergency in dashboard.emergencies | orderBy: '-started'">
+  <div layout="column" layout-gt-xs="row" ng-if="dashboard.showActive && emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText | orderBy: '-started'">
 
     <!-- Card Wrapper -->
     <md-card flex flex-gt-xs="30">
@@ -79,7 +78,7 @@
   </div>
 
   <!-- Emergencies (Inactive) -->
-  <div layout="column" class="inactiveEmergency" layout-gt-xs="row" ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies | orderBy: '-started'">
+  <div layout="column" class="inactiveEmergency" layout-gt-xs="row" ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText | orderBy: '-started'">
 
     <!-- Card Wrapper -->
     <md-card flex flex-gt-xs="30">
