@@ -148,15 +148,50 @@ function showStudentsForEvents (eventid) {
   })
 }
 
-function joinStudentEvent (studentids) {
+function getSeid (studentsid) {
+  return new Promise(function (resolve, reject) {
+    knex('studentsevents')
+      .select('ID')
+      .whereIn('created_by', studentsid)
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
+
+function joinStudentEvent (studentids, eventids) {
   return knex('studentsevents as se')
     .whereIn('se.created_by', studentids)
+    .whereIn('se.eid', eventids)
     .join('events as e', 'se.eid', '=', 'e.ID')
+    .join('locations as l', 'l.eid', '=', 'e.ID')
     .join('students as s', 'se.created_by', '=', 's.ID')
-    .select('s.name as by', 'e.created_at as started', 'e.longitude as longitude', 'e.latitude as latitude', 'e.status as status').then(function (resp) {
-      console.log('this is joinStudentEvet', resp)
+    .select('e.uid as id', 's.name as by', 'e.created_at as started', 'l.locations as locations', 'e.active as active', 'e.ended as ended')
+    .then(function (resp) {
+      console.log('this is resp', resp)
+      resp.forEach(function (currentEl) {
+        if (currentEl.active === 1) {
+          currentEl.active = true
+        } else if (currentEl.active === 0) {
+          currentEl.active = false
+        }
+        currentEl.locations = JSON.parse(currentEl.locations)
+      })
       return resp
     })
+}
+
+function onEnded (uid, time) {
+  return new Promise(function (resolve, reject) {
+    knex('events')
+      .where('uid', uid)
+      .update({active: false, ended: time})
+
+      .then(function (resp) {
+        console.log('case closed', resp)
+        resolve(resp)
+      })
+  })
 }
 
 module.exports = {
@@ -173,5 +208,7 @@ module.exports = {
   showStudentNames: showStudentNames,
   showEventData: showEventData,
   showStudentsForEvents: showStudentsForEvents,
-  joinStudentEvent: joinStudentEvent
+  joinStudentEvent: joinStudentEvent,
+  getSeid: getSeid,
+  onEnded: onEnded
 }

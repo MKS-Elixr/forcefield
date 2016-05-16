@@ -42,6 +42,7 @@ router.get('/:school/emergencies', function (req, res) {
   var studentid = []
   var eventsid = []
   var studentsid = []
+
   helper.getSchools(schoolname).then(function (response) {
     console.log('this is schoolids', response)
     response.forEach(function (currentEl) {
@@ -69,15 +70,11 @@ router.get('/:school/emergencies', function (req, res) {
             studentsid.push(currentEl.created_by)
           })
           return studentsid
-        }).then(function (resp) {
-          helper.joinStudentEvent(resp).then(function (response) {
-            console.log('this is join response', response)
-            response.forEach(function (currentEl) {
-              currentEl['location'] = {longitude: currentEl.longitude, latitude: currentEl.latitude}
-            })
+        }).then(function () {
+          helper.joinStudentEvent(studentsid, eventsid).then(function (response) {
+            console.log('response', response)
             res.json({
-              data: response
-            })
+              response})
           })
         })
       })

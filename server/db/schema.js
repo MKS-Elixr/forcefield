@@ -21,8 +21,7 @@ knex.schema.createTableIfNotExists('schools', function (table) {
   table.increments('ID').primary()
   table.string('name')
   table.string('password')
-  table.string('longitude')
-  table.string('latitude')
+  table.string('location')
 }).then(function () {
   console.log('school schema created.')
 })
@@ -30,12 +29,12 @@ knex.schema.createTableIfNotExists('schools', function (table) {
 knex.schema.createTableIfNotExists('events', function (table) {
   table.increments('ID').primary()
   table.timestamp('created_at').defaultTo(knex.fn.now())
-  table.string('created_by')
+  table.string('uid')
   table.string('description')
   table.string('status')
   table.string('imgurl')
-  table.string('longitude')
-  table.string('latitude')
+  table.string('location')
+  table.string('ended', [null])
   table.integer('sid')
 }).then(function () {
   knex.schema.table('events', function (table) {
@@ -67,14 +66,23 @@ knex.schema.createTableIfNotExists('studentsevents', function (table) {
   table.increments('ID').primary()
   table.integer('created_by')
   table.integer('eid')
-// table.integer('sid')
 }).then(function () {
   knex.schema.table('studentsevents', function (table) {
     table.foreign('created_by').references('students.ID')
     table.foreign('eid').references('events.ID')
-  // table.foreign('sid').references('schools.ID')
   })
   console.log('studentsevents schema created.')
+})
+
+knex.schema.createTableIfNotExists('locations', function (table) {
+  table.increments('ID').primary()
+  table.json('locations')
+  table.integer('eid')
+}).then(function () {
+  knex.schema.table('locations', function (table) {
+    table.foreign('eid').references('events.ID')
+  })
+  console.log('locations schema created.')
 })
 
 // knex.schema.createTableIfNotExists('schoolstudentevents', function (table) {
