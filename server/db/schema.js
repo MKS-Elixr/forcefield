@@ -31,7 +31,7 @@ knex.schema.createTableIfNotExists('events', function (table) {
   table.timestamp('created_at').defaultTo(knex.fn.now())
   table.string('uid')
   table.string('description')
-  table.string('status')
+  table.boolean('active')
   table.string('imgurl')
   table.string('location')
   table.string('ended', [null])
