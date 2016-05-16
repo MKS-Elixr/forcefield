@@ -12,7 +12,7 @@
 
     <!-- Marker Label -->
     <ui-gmap-window show="true">
-      <div>{{emergency.by}}</div> 
+      <div>{{emergency.by}}</div>
     </ui-gmap-window>
   </ui-gmap-marker>
 
@@ -41,10 +41,10 @@
     <md-button class="md-raised logout-btn" ng-click="dashboard.logout()">Logout</md-button>
     <div layout="row">
       <div flex="50" class="checkboxes">
-   
+
         <!-- Toggle Emergencies (Active) -->
         <md-checkbox class="md-primary" ng-model="dashboard.showActive" aria-label="Active">Active</md-checkbox>
-      
+
         <!-- Toggle Emergencies (Inactive) -->
         <md-checkbox class="md-primary" ng-model="dashboard.showInactive" aria-label="Inactive">Inactive</md-checkbox>
       </div>
