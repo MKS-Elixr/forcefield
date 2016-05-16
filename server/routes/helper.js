@@ -195,6 +195,49 @@ function onEnded (uid, time) {
   })
 }
 
+function getSchoolPassword (name) {
+  return new Promise(function (resolve, reject) {
+    knex('schools')
+      .select('password')
+      .where('name', name)
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
+
+function getSchoolName (name) {
+  return new Promise(function (resolve, reject) {
+    knex('schools')
+      .select()
+      .where('name', name)
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
+
+function getStudentsPassword (email) {
+  return new Promise(function (resolve, reject) {
+    knex('students')
+      .select('password')
+      .where('email', email)
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
+
+function getStudentsEmail (email) {
+  return new Promise(function (resolve, reject) {
+    knex('students')
+      .select()
+      .where('email', email)
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
 module.exports = {
   showAllSchools: showAllSchools,
   getSchools: getSchools,
@@ -211,5 +254,9 @@ module.exports = {
   showStudentsForEvents: showStudentsForEvents,
   joinStudentEvent: joinStudentEvent,
   getSeid: getSeid,
-  onEnded: onEnded
+  onEnded: onEnded,
+  getSchoolPassword: getSchoolPassword,
+  getSchoolName: getSchoolName,
+  getStudentsPassword: getStudentsPassword,
+  getStudentsEmail: getStudentsEmail
 }

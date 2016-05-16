@@ -24,6 +24,8 @@ app.use('', express.static('./public'))
 
 // Setup Routes
 app.use('/schools', require('./routes/routes.js'))
+app.use(require('./routes/signin.js'))
+app.use(require('./routes/signup.js'))
 
 // Initialize Server
 server.listen(process.env.PORT || 8080)
