@@ -3,7 +3,7 @@ var knex = require('../db/schema.js').knex
 function getStudentInfo (email) {
   return new Promise(function (resolve, reject) {
     knex('students')
-      .select('ID', 'name', 'sid')
+      .select('ID', 'sid')
       .where('email', email)
       .then(function (resp) {
         resolve(resp)
@@ -11,43 +11,45 @@ function getStudentInfo (email) {
   })
 }
 
-function insertEvent (long, lat) {
+function insertEvent (loc, sid) {
   console.log('inside event')
   return new Promise(function (resolve, reject) {
-    knex('events').insert({longitude: long, latitude: lat, status: 'active', created_at: knex.fn.now()})
-      // .select('ID')
+    knex('events').insert({uid: pseudoRandomString(), location: loc, active: true, created_at: knex.fn.now(), sid: sid})
+      .select('ID')
       .then(function (resp) {
+        console.log('event inserted ', resp)
         resolve(resp)
       })
   })
 }
 
-function updateStudentLocation (studentid, long, lat) {
-  knex('students')
-    .where('ID', studentid)
-    .update({longitude: long, latitude: lat}).then(function (resp) {
+function pseudoRandomString () {
+  return Math.round((Math.pow(36, 6) - Math.random() * Math.pow(36, 5))).toString(36).slice(1)
+}
+
+function insertStudentLocations (studenteventid, loc) {
+  return knex('locations')
+    .where('ID', studenteventid)
+    .insert({location: loc}).then(function (resp) {
       console.log('inside updateStudentLocation')
     })
 }
 
-function checkAllEvents (long, lat) {
-  console.log('triggered')
-  return new Promise(function (resolve, reject) {
-    knex('events')
-      .select('ID')
-      .where('longitude', long)
-      .where('latitude', lat)
-      .then(function (resp) {
-        resolve(resp)
-      })
-  })
-}
-
 function insertIntoStudentEvents (studentid, eventid) {
   return new Promise(function (resolve, reject) {
-    knex('studentsevents').insert({created_by: studentid, eid: eventid}).then(function (resp) {
-      resolve(resp)
-    })
+    knex('studentsevents')
+      .where('created_by', studentid)
+      .where('eid', eventid)
+      .then(function (resp) {
+        if (resp.length === 0) {
+          knex('studentsevents').insert({created_by: studentid, eid: eventid}).then(function (resp) {
+            console.log('this is resp from insertstudentsevents', resp)
+            resolve(resp)
+          })
+        } else {
+          console.error('this studentevent already exist')
+        }
+      })
   })
 }
 
@@ -72,12 +74,108 @@ function getEventTime (eventid) {
   })
 }
 
+function joinStudentEvent (studentid, eventid) {
+  return knex('studentsevents as se')
+    .where('se.created_by', studentid)
+    .where('se.eid', eventid)
+    .join('events as e', 'se.eid', '=', 'e.ID')
+    .join('students as s', 'se.created_by', '=', 's.ID')
+    .select('e.uid as uid', 's.name as by', 'e.created_at as started', 'e.active as active', 'e.location as location', 'e.ended as ended').then(function (resp) {
+      if (resp[0].active === 1) {
+        resp[0].active = true
+      } else if (resp[0].active === 0) {
+        resp[0].active = false
+      }
+
+      return resp
+    })
+}
+
+function getUpdatedLocation (studentid) {
+  return new Promise(function (resolve, reject) {
+    knex('students')
+      .where('ID', studentid)
+      .select('location')
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
+
+function insertLocation (uid, loc) {
+  var eventid
+  var lid
+
+  return new Promise(function (resolve, reject) {
+    knex('events')
+      .select('ID')
+      .where('uid', uid)
+      .then(function (resp) {
+        console.log('******this is resp', resp[0].ID)
+        eventid = resp[0].ID
+        return eventid
+      }).then(function () {
+        knex('locations')
+        .where('eid', eventid)
+        .select('ID', 'locations')
+        .then(function (resp) {
+          console.log('this is resp 123', resp)
+          var location = resp[0].locations
+          lid = resp[0].ID
+          location = JSON.parse(location)
+          console.log('this is parsed location', location)
+          location.push(loc)
+          location = JSON.stringify(location)
+          console.log('this is location after push', location)
+          return location
+        }).then(function (resp) {
+          knex('locations')
+          .where('ID', lid)
+          .update({locations: resp}).then(function (resp) {
+            console.log('new location   inserted', resp)
+          })
+          resolve(loc)
+        })
+      })
+  })
+}
+
+function insertNewEventLocation (eventid, loc) {
+  console.log('trigered')
+  return new Promise(function (resolve, reject) {
+    knex('locations').insert({eid: eventid, locations: loc}).then(function (resp) {
+      resolve(resp)
+    })
+  })
+}
+
+function onEnded (uid, time) {
+  return new Promise(function (resolve, reject) {
+    knex('events')
+      .where('uid', uid)
+      .update({active: false, ended: time})
+
+      .then(function (resp) {
+        knex('events')
+        .where('uid', uid)
+        .then(function (resp) {
+          console.log('case closed', resp)
+          resolve(resp)
+        })
+      })
+  })
+}
+
 module.exports = {
   getStudentInfo: getStudentInfo,
   insertEvent: insertEvent,
-  updateStudentLocation: updateStudentLocation,
-  checkAllEvents: checkAllEvents,
+  insertStudentLocations: insertStudentLocations,
   insertIntoStudentEvents: insertIntoStudentEvents,
   showEventInfo: showEventInfo,
-  getEventTime: getEventTime
+  getEventTime: getEventTime,
+  joinStudentEvent: joinStudentEvent,
+  getUpdatedLocation: getUpdatedLocation,
+  insertLocation: insertLocation,
+  insertNewEventLocation: insertNewEventLocation,
+  onEnded: onEnded
 }

@@ -6,7 +6,6 @@ var express = require('express')
 var morgan = require('morgan')
 var server = require('http').Server(app)
 var sockethelper = require('./routes/sockethelper.js')
-
 // Require Dependencies Non Alphabetically
 var io = require('socket.io')(server)
 
@@ -35,78 +34,85 @@ io.on('connection', function (socket) {
 
   // Listen for Button Presses
   socket.on('buttonPress', function (data) {
-    console.log('Button Pressed')
-
+    console.log('Button Pressed', data)
     var eventid
-    var eventtime
-    var studentid
-    var studentname
+    var studentinfo = {}
+    var seid
+    var lid
+    var dt = new Date()
+    var utcDate = dt.toUTCString()
+    data.location['timestamp'] = utcDate
+    var location = []
+    location.push(data.location)
+    location = JSON.stringify(location)
 
     sockethelper.getStudentInfo(data.email).then(function (response) {
       response.forEach(function (currentEl) {
-        studentid = currentEl.ID
+        studentinfo['studentid'] = currentEl.ID
+        studentinfo['schoolid'] = currentEl.sid
       })
-      return studentid
+      console.log('studentid', studentinfo.studentid)
+      console.log('schoolid', studentinfo.schoolid)
+      return studentinfo
     }).then(function () {
-      sockethelper.getStudentInfo(data.email).then(function (response) {
-        response.forEach(function (currentEl) {
-          studentname = currentEl.name
-        })
-        return studentname
-      })
-    }).then(function () {
-      sockethelper.checkAllEvents(data.location.longitude, data.location.latitude).then(function (response) {
-        if (response.length !== 0) {
-        } else {
-          sockethelper.insertEvent(data.location.longitude, data.location.latitude).then(function (response) {
-            eventid = response
-            return eventid
-          }).then(function (resp) {
-            sockethelper.getEventTime(resp).then(function (response) {
-              eventtime = response
-              return eventtime
-            })
-          }).then(function (resp) {
-            sockethelper.insertIntoStudentEvents(studentid, eventid).then(function (response) {
-              var data = {
-                eventid: eventid[0],
-                studentname: studentname,
-                eventtime: eventtime[0]
-              }
-              return data
-            }).then(function (resp) {
-              console.log('Emitting a New Emergency')
-
-              io.sockets.emit('newEmergency', {
-                id: resp.eventid,
-                by: resp.studentname,
-                started: resp.eventtime.created_at,
-                location: data.location,
-                status: 'active'
-              })
+      console.log('chain continued')
+      sockethelper.insertEvent(location, studentinfo.schoolid).then(function (response) {
+        console.log('inside insertevent', response)
+        eventid = response
+        console.log('eventid', eventid)
+        return response
+      }).then(function () {
+        console.log('chain continued 2')
+        sockethelper.insertIntoStudentEvents(studentinfo.studentid, eventid).then(function (response) {
+          console.log('studentevent inserted', response)
+          seid = response[0]
+          return seid
+        }).then(function () {
+          console.log('chain continued 2.5')
+          console.log('this is location server.js', location)
+          sockethelper.insertNewEventLocation(eventid, location).then(function (response) {
+            console.log('initial location inserted', response)
+            lid = response[0]
+            return lid
+          }).then(function () {
+            console.log('chain continued 3')
+            sockethelper.joinStudentEvent(studentinfo.studentid, eventid).then(function (response) {
+              console.log('this is response', response)
+              io.sockets.emit('newEmergency', response)
             })
           })
-        }
+        })
       })
     })
   })
 
-  // Listen for Movement
-  io.on('movement', function (data) {
-    console.log('Movement Detected')
+  socket.on('movement', function (data) {
+    console.log('Movement Detected', data)
+    var dt = new Date()
+    var utcDate = dt.toUTCString()
+    data.location['timestamp'] = utcDate
+    console.log('this is the new data.location', data.location)
+    // var location = JSON.stringify(data.location)
+    sockethelper.insertLocation(data.uid, data.location).then(function (response) {
+      response['uid'] = data.uid
+      console.log('response from the other side jaysus', response)
+      io.sockets.emit('movement', response)
+    })
+  })
 
-    var studentid
-
-    sockethelper.matchEmail(data.email).then(function (response) {
-      response.forEach(function (currentEl) {
-        studentid = currentEl.ID
-      })
-      return studentid
-    }).then(function (resp) {
-      sockethelper.updateStudentLocation(resp, data.location.longitude, data.location.latitude).then(function (response) {
-      })
+  socket.on('ended', function (data) {
+    console.log('Case closed', data)
+    var dt = new Date()
+    var utcDate = dt.toUTCString()
+    sockethelper.onEnded(data.uid, utcDate).then(function (response) {
+      console.log('hi')
+      io.sockets.emit('ended', response)
     })
   })
 })
+
+// socket.on('ended',function (data) {
+
+// })
 
 module.exports = app
