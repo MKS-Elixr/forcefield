@@ -86,7 +86,7 @@ function joinStudentEvent (studentid, eventid) {
       } else if (resp[0].active === 0) {
         resp[0].active = false
       }
-
+      resp[0].id = resp[0].id.toUpperCase()
       resp[0].location = JSON.parse(resp[0].location)
       resp[0].location = resp[0].location[0]
 

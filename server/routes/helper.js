@@ -176,6 +176,7 @@ function joinStudentEvent (studentids, eventids) {
         } else if (currentEl.active === 0) {
           currentEl.active = false
         }
+        currentEl.id = currentEl.id.toUpperCase()
         currentEl.locations = JSON.parse(currentEl.locations)
       })
       return resp
