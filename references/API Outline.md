@@ -6,12 +6,27 @@
 [
   {
     name: 'MakerSquare'
+    location: {
+      latitude: 'number',
+      longitude: 'number'
+    },
+    zoom: 18
   },
   {
     name: 'Riverside'
+    location: {
+      latitude: 'number',
+      longitude: 'number'
+    },
+    zoom: 15
   },
   {
     name: 'Mizzou'
+    location: {
+      latitude: 'number',
+      longitude: 'number'
+    }
+    zoom: 16
   }
 ]
 ```
