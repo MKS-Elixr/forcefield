@@ -3,7 +3,7 @@ var knex = require('../db/schema.js').knex
 function showAllSchools () {
   return new Promise(function (resolve, reject) {
     knex('schools')
-      .select('name', 'location')
+      .select('name', 'location', 'zoom')
         .then(function (resp) {
           resolve(resp)
         })
