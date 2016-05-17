@@ -1,6 +1,6 @@
 .angular-google-map-container {
   height: 99%;
-  width:70%;
+  width: 70%;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -24,7 +24,7 @@ html, body {
 .md-padding {
   padding: 4px;
   background-color: #e6e6e6;
-  padding-bottom:0px;
+  padding-bottom: 0px;
 }
 
 .md-padding h2 {
@@ -40,7 +40,7 @@ html, body {
   padding-left: 10px;
   margin: auto;  
   position: absolute;
-  left:0;
+  left: 0;
   right: 0;
   top: 0;
   bottom: 0;
@@ -56,8 +56,8 @@ html, body {
   left: 0;
   right: 0;
   margin: auto;
-  overflow-y:hidden;
-  overflow-x:auto; 
+  overflow-y: hidden;
+  overflow-x: auto;
 }
 
 .checkboxes {
@@ -75,4 +75,13 @@ html, body {
 
 .search {
   height: 20px;
+}
+
+.school-selector {
+  background-color: white;
+  margin-left: 110px;
+}
+
+.password-input {
+  width: 151px;
 }
