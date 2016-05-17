@@ -11,7 +11,7 @@
     activate()
 
     // Variables
-    vm.emergencies = Emergencies.all()
+    vm.emergencies = []
     vm.map = {
       center: {
         latitude: 34.018344,
@@ -33,6 +33,10 @@
 
     // Implementation Details
     function activate () {
+      Emergencies.all.then(function success (response) {
+        vm.emergencies = response.data.response
+      })
+
       Socket.on('newEmergency', function (emergency) {
         // Data Server Should Provide (But Doesn't)
         emergency.uniqueID = 'TEST1'
