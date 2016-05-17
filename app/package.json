@@ -29,7 +29,8 @@
       "locator": "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git",
       "id": "cordova-plugin-inappbrowser"
     },
-    "cordova-custom-config"
+    "cordova-custom-config",
+    "cordova-plugin-geolocation"
   ],
   "cordovaPlatforms": [
     "ios"

@@ -5,7 +5,7 @@
     .module('jubilant-umbrella.landing')
     .controller('LandingController', LandingController)
 
-  function LandingController (Socket, $ionicSlideBoxDelegate, $state) {
+  function LandingController (Socket, $cordovaGeolocation, $ionicSlideBoxDelegate, $state) {
     // Initialization
     var vm = this
     activate()
