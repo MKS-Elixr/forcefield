@@ -87,6 +87,9 @@ function joinStudentEvent (studentid, eventid) {
         resp[0].active = false
       }
 
+      resp[0].location = JSON.parse(resp[0].location)
+      resp[0].location = resp[0].location[0]
+
       return resp
     })
 }
