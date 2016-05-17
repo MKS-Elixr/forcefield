@@ -36,14 +36,8 @@
       Emergencies.all.then(function success (response) {
         vm.emergencies = response.data.response
       })
-
       Socket.on('newEmergency', function (emergency) {
-        // Data Server Should Provide (But Doesn't)
-        emergency.uniqueID = 'TEST1'
-        emergency.active = true
-        emergency.name = 'Mock Data'
-        emergency.phone = '012-345-6789'
-        Emergencies.add(emergency)
+        vm.emergencies.push(emergency)
       })
     }
 
@@ -67,7 +61,7 @@
       var randomNum1 = (Math.floor((Math.random() * 100000) + 1)).toString()
       var randomNum2 = (Math.floor((Math.random() * 100000) + 1)).toString()
       Socket.emit('buttonPress', {
-        email: 'test' + randomNum1 + '@email.com',
+        email: 'testdain@email.com',
         location: {
           latitude: '34.01' + randomNum1,
           longitude: '-118.49' + randomNum2
