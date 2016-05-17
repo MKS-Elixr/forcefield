@@ -4,26 +4,31 @@
     .module('jubilant-umbrella.landing')
     .controller('LandingController', LandingController)
 
-  function LandingController ($state) {
+  function LandingController (Schools, $state) {
     // Initialization
     var vm = this
+    activate()
 
     // Variables
-    var email = null
-    var password = null
+    vm.password = ''
+    vm.school = ''
+    vm.schools = []
 
     // Functions
     vm.signIn = signIn
     vm.signUp = signUp
 
-    // Implementation Details
+    function activate () {
+      Schools.then(function success (response) {
+        vm.schools = response.data.response
+      })
+    }
+
     function signIn () {
-      console.log(email, password)
       $state.go('dashboard')
     }
 
     function signUp () {
-      console.log(email, password)
       $state.go('dashboard')
     }
   }

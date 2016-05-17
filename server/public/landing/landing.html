@@ -1,13 +1,21 @@
 <div align="center" class="login-container">
   <h1>Officer Dashboard</h1>
-  <md-card align="center" flex flex-gt-xs="30">
+  <md-card flex flex-gt-xs="30">
     <div layout="column" layout-padding>
-      <md-content class="autoScroll">
+      <md-content>
         <h1>Sign In</h1>
-        <md-input-container md-no-float class="md-block">
-          <input ng-model="landing.email" type="text" placeholder="Email">
-        </md-input-container>
-        <md-input-container md-no-float class="md-block">
+        <div class="school-selector">
+          <div layout="row">
+            <md-input-container>
+              <md-select ng-model="landing.school" placeholder="Select a School">
+                <md-optgroup label="schools">
+                  <md-option ng-repeat="school in landing.schools" ng-value="school">{{school.name}}</md-option>
+                </md-optgroup>
+              </md-select>
+            </md-input-container>
+          </div>
+        </div>
+        <md-input-container md-no-float class="md-block password-input">
           <input ng-model="landing.password" type="password" placeholder="Password">
         </md-input-container>
       </md-content>
