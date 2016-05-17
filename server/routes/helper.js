@@ -167,7 +167,7 @@ function joinStudentEvent (studentids, eventids) {
     .join('events as e', 'se.eid', '=', 'e.ID')
     .join('locations as l', 'l.eid', '=', 'e.ID')
     .join('students as s', 'se.created_by', '=', 's.ID')
-    .select('e.uid as id', 's.name as by', 'e.created_at as started', 'l.locations as locations', 'e.active as active', 'e.ended as ended')
+    .select('e.uid as id', 's.name as by', 's.phonenum as phone', 'e.created_at as started', 'l.locations as locations', 'e.active as active', 'e.ended as ended')
     .then(function (resp) {
       console.log('this is resp', resp)
       resp.forEach(function (currentEl) {
