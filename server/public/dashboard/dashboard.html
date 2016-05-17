@@ -5,7 +5,7 @@
   <ui-gmap-layer namespace="visualization" type="HeatmapLayer" show="dashboard.showHeatMap" onCreated="dashboard.insertHeatLayer"></ui-gmap-layer>
 
   <!-- Markers (Active) -->
-  <ui-gmap-marker ng-if="dashboard.showActive && emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
+  <ui-gmap-marker ng-if="dashboard.showActive && emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText" idKey="emergency.id" coords="emergency.locations[emergency.locations.length - 1]">
 
     <!-- Movement Path (Active) -->
     <ui-gmap-polyline ng-if="dashboard.showActive && emergency.active" path="emergency.locations" stroke="{color: '#6060FB', weight: 5, opacity: 0.6}"></ui-gmap-polylines>
@@ -17,7 +17,7 @@
   </ui-gmap-marker>
 
   <!-- Markers (Inactive) -->
-  <ui-gmap-marker ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText" idKey="0" coords="emergency.locations[emergency.locations.length - 1]">
+  <ui-gmap-marker ng-if="dashboard.showInactive && !emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText" idKey="emergency.id" coords="emergency.locations[emergency.locations.length - 1]">
 
     <!-- Movement Path (Inactive) -->
     <ui-gmap-polyline ng-if="dashboard.showInactive && !emergency.active" path="emergency.locations" stroke="{color: '#6060FB', weight: 5, opacity: 0.6}"></ui-gmap-polylines></ui-gmap-polylines>
