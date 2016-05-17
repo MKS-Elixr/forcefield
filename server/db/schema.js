@@ -22,7 +22,7 @@ knex.schema.createTableIfNotExists('schools', function (table) {
   table.string('name')
   table.string('password')
   table.string('location')
-  table.string('zoomlvl')
+  table.string('zoom')
 }).then(function () {
   console.log('school schema created.')
 })
