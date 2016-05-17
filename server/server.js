@@ -115,7 +115,7 @@ io.on('connection', function (socket) {
     console.log('Case closed', data)
     var dt = new Date()
     var utcDate = dt.toUTCString()
-    sockethelper.onEnded(data.uid, utcDate).then(function (response) {
+    sockethelper.onEnded(data.id, utcDate).then(function (response) {
       console.log('hi')
       io.sockets.emit('ended', response)
     })

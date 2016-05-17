@@ -152,15 +152,15 @@ function insertNewEventLocation (eventid, loc) {
   })
 }
 
-function onEnded (uid, time) {
+function onEnded (id, time) {
   return new Promise(function (resolve, reject) {
     knex('events')
-      .where('uid', uid)
+      .where('uid', id)
       .update({active: false, ended: time})
 
       .then(function (resp) {
         knex('events')
-        .where('uid', uid)
+        .where('uid', id)
         .then(function (resp) {
           console.log('case closed', resp)
           resolve(resp)
