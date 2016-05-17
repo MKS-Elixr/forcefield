@@ -80,7 +80,7 @@ function joinStudentEvent (studentid, eventid) {
     .where('se.eid', eventid)
     .join('events as e', 'se.eid', '=', 'e.ID')
     .join('students as s', 'se.created_by', '=', 's.ID')
-    .select('e.uid as id', 's.name as by', 'e.created_at as started', 'e.active as active', 'e.location as location', 'e.ended as ended').then(function (resp) {
+    .select('e.uid as id', 's.name as by', 's.phonenum as phone', 'e.created_at as started', 'e.active as active', 'e.location as location', 'e.ended as ended').then(function (resp) {
       if (resp[0].active === 1) {
         resp[0].active = true
       } else if (resp[0].active === 0) {
