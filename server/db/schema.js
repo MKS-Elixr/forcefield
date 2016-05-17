@@ -22,6 +22,7 @@ knex.schema.createTableIfNotExists('schools', function (table) {
   table.string('name')
   table.string('password')
   table.string('location')
+  table.string('zoomlvl')
 }).then(function () {
   console.log('school schema created.')
 })
@@ -30,7 +31,6 @@ knex.schema.createTableIfNotExists('events', function (table) {
   table.increments('ID').primary()
   table.timestamp('created_at').defaultTo(knex.fn.now())
   table.string('uid')
-  table.string('description')
   table.boolean('active')
   table.string('imgurl')
   table.string('location')
@@ -54,7 +54,6 @@ knex.schema.createTableIfNotExists('students', function (table) {
   table.string('longitude')
   table.string('latitude')
   table.integer('sid')
-  table.boolean('waitness')
 }).then(function () {
   knex.schema.table('students', function (table) {
     table.foreign('sid').references('schools.ID')
