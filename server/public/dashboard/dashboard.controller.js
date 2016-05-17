@@ -53,7 +53,8 @@
         .ok('Set Inactive')
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
-        Emergencies.close(emergency)
+        Socket.emit('ended', {id: emergency.id})
+        vm.emergencies[vm.emergencies.indexOf(emergency)].active = false
       })
     }
 
@@ -101,7 +102,8 @@
         .ok('Set Active')
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
-        Emergencies.open(emergency)
+        Socket.emit('opened', {id: emergency.id})
+        vm.emergencies[vm.emergencies.indexOf(emergency)].active = true
       })
     }
   }
