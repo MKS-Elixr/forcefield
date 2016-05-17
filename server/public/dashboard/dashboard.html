@@ -69,7 +69,7 @@
       <md-card-content>
         <p>Name: {{emergency.by}}</p>
         <p>Phone: {{emergency.phone}}</p>
-        <p>Time: {{emergency.started | date: 'short'}}</p>
+        <p>Started: {{emergency.started | date: 'short'}}</p>
 
         <!-- Center On Button -->
         <md-button class="md-raised" ng-click="dashboard.centerOn(emergency)">Center On</md-button>
@@ -93,7 +93,8 @@
       <md-card-content>
         <p>Name: {{emergency.by}}</p>
         <p>Phone: {{emergency.phone}}</p>
-        <p>Time: {{emergency.started | date: 'short'}}</p>
+        <p>Started: {{emergency.started | date: 'short'}}</p>
+        <p>Ended: {{emergency.ended | date: 'short'}}</p>
 
         <!-- Center On Button -->
         <md-button class="md-raised" ng-click="dashboard.centerOn(emergency)">Center On</md-button>
