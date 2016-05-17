@@ -80,7 +80,16 @@ io.on('connection', function (socket) {
             console.log('chain continued 3')
             sockethelper.joinStudentEvent(studentinfo.studentid, eventid).then(function (response) {
               console.log('this is response', response)
-              io.sockets.emit('newEmergency', response)
+              var formattedResponse = {
+                active: response[0].active,
+                by: response[0].by,
+                ended: response[0].ended,
+                id: response[0].id,
+                locations: [response[0].location],
+                phone: response[0].phone,
+                started: response[0].started
+              }
+              io.sockets.emit('newEmergency', formattedResponse)
             })
           })
         })

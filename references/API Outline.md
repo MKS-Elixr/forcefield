@@ -134,11 +134,13 @@ location: {
 
 // Server Emits movement
 id: 'L32MA',
-location: {
-  timestamp: 'timestamp'
-  latitude: 'number',
-  longitude: 'number'
-}
+locations: [
+  {
+    timestamp: 'timestamp'
+    latitude: 'number',
+    longitude: 'number'
+  }
+]
 ```
 
 ## Socket Ended (emergency is over)
