@@ -4,19 +4,19 @@ var router = require('express').Router()
 
 router.post('/schools/signin', function (req, res) {
   var generateToken = jwt.sign({
-    name: req.body.name,
+    name: req.body.school,
     password: req.body.password
   }, process.env.TOKEN_SECRET)
 
-  console.log(req.body.name)
+  console.log(req.body.school)
 
-  helper.getSchoolName(req.body.name).then(function (nameResp) {
+  helper.getSchoolName(req.body.school).then(function (nameResp) {
     console.log('nameResp ', nameResp)
     console.log(nameResp.length)
     if (nameResp.length === 0) {
       res.json({success: false}).status(500)
     } else {
-      helper.getSchoolPassword(req.body.name).then(function (resp) {
+      helper.getSchoolPassword(req.body.school).then(function (resp) {
         if (req.body.password === resp[0]['password']) {
           console.log('resp at 0', resp[0])
           res.json({success: true, generateToken: generateToken}).status(201)
