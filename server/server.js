@@ -97,7 +97,7 @@ io.on('connection', function (socket) {
     })
   })
 
-  socket.on('movement', function (data) {
+  socket.on('newPosition', function (data) {
     console.log('Movement Detected', data)
     var dt = new Date()
     var utcDate = dt.toUTCString()
