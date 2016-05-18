@@ -239,6 +239,28 @@ function getStudentsEmail (email) {
       })
   })
 }
+
+function getStudentSchoolID (school) {
+  return new Promise(function (resolve, reject) {
+    knex('schools')
+      .select('id')
+      .where('name', school)
+      .then(function (resp) {
+        resolve(resp)
+      })
+  })
+}
+
+function insertStudentsInfo (resp) {
+  return new Promise(function (resolve, reject) {
+    knex('students')
+    .insert(resp)
+    .then(function (resp) {
+      resolve(resp)
+    })
+  })
+}
+
 module.exports = {
   showAllSchools: showAllSchools,
   getSchools: getSchools,
@@ -259,5 +281,7 @@ module.exports = {
   getSchoolPassword: getSchoolPassword,
   getSchoolName: getSchoolName,
   getStudentsPassword: getStudentsPassword,
-  getStudentsEmail: getStudentsEmail
+  getStudentsEmail: getStudentsEmail,
+  getStudentSchoolID: getStudentSchoolID,
+  insertStudentsInfo: insertStudentsInfo
 }
