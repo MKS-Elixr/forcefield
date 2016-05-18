@@ -41,7 +41,7 @@ router.get('/:school/students', function (req, res) {
     })
   }
   var error = function () {
-    res.status(401).json({success: false, tokenValid: false})
+    res.status(404).json({success: false, tokenValid: false})
   }
   Auth.verifyToken(token, showStudentInSchool, error)
 })
@@ -94,7 +94,7 @@ router.get('/:school/emergencies', function (req, res) {
     })
   }
   var error = function () {
-    res.status(401).json({success: false, tokenValid: false})
+    res.status(404).json({success: false, tokenValid: false})
   }
   Auth.verifyToken(token, showEmergencies, error)
 })

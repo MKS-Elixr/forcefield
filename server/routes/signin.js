@@ -14,14 +14,14 @@ router.post('/schools/signin', function (req, res) {
     console.log('nameResp ', nameResp)
     console.log(nameResp.length)
     if (nameResp.length === 0) {
-      res.json({success: false}).status(401)
+      res.json({success: false}).status(500)
     } else {
       helper.getSchoolPassword(req.body.school).then(function (resp) {
         if (req.body.password === resp[0]['password']) {
           console.log('resp at 0', resp[0])
           res.json({success: true, token: generateToken}).status(201)
         } else {
-          res.json({success: false}).status(401)
+          res.json({success: false}).status(500)
         }
       })
     }
@@ -39,13 +39,13 @@ router.post('/signin', function (req, res) {
 
   helper.getStudentsEmail(req.body.email).then(function (emailResp) {
     if (emailResp.length === 0) {
-      res.json({success: false}).status(401)
+      res.json({success: false}).status(500)
     } else {
       helper.getStudentsPassword(req.body.email).then(function (resp) {
         if (req.body.password === resp[0]['password']) {
           res.json({success: true, generateToken: generateToken}).status(201)
         } else {
-          res.json({success: false}).status(401)
+          res.json({success: false}).status(500)
         }
       })
     }
