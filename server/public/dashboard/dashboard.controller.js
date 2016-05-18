@@ -5,7 +5,7 @@
     .module('jubilant-umbrella.dashboard')
     .controller('DashboardController', DashboardController)
 
-  function DashboardController (Emergencies, Socket, $mdDialog, $state) {
+  function DashboardController (Authentication, Emergencies, Socket, $mdDialog, $state) {
     // Initialization
     var vm = this
     activate()
@@ -30,6 +30,7 @@
     vm.insertHeatLayer = insertHeatLayer
     vm.logout = logout
     vm.openEmergency = openEmergency
+    vm.signOut = signOut
 
     // Implementation Details
     function activate () {
@@ -105,6 +106,10 @@
         Socket.emit('opened', {id: emergency.id})
         vm.emergencies[vm.emergencies.indexOf(emergency)].active = true
       })
+    }
+
+    function signOut () {
+      Authentication.signOut()
     }
   }
 })()
