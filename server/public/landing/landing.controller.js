@@ -26,7 +26,7 @@
     }
 
     function signIn () {
-      Authentication.signIn(vm.account.school.name, vm.account.password)
+      Authentication.signIn(vm.account.school, vm.account.password)
     }
   }
 })()
