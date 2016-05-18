@@ -29,13 +29,13 @@ knex.schema.createTableIfNotExists('schools', function (table) {
 
 knex.schema.createTableIfNotExists('events', function (table) {
   table.increments('ID').primary()
-  table.timestamp('created_at').defaultTo(knex.fn.now())
+  table.timestamp('created_at')
   table.string('uid')
   table.string('description')
   table.boolean('active')
   table.string('imgurl')
   table.string('location')
-  table.string('ended', [null])
+  table.timestamp('ended')
   table.integer('sid')
 }).then(function () {
   knex.schema.table('events', function (table) {
