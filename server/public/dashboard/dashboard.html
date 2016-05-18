@@ -2,6 +2,7 @@
 <ui-gmap-google-map center="dashboard.map.center" zoom="dashboard.map.zoom">
 
   <!-- Heatmap Layer -->
+  <ui-gmap-layer namespace="visualization" type="HeatmapLayer" show="dashboard.showHeatMap" onCreated="dashboard.insertHeatLayer"></ui-gmap-layer>
 
   <!-- Markers (Active) -->
   <ui-gmap-marker ng-if="dashboard.showActive && emergency.active" ng-repeat="emergency in dashboard.emergencies | filter: searchText" idKey="emergency.id" coords="emergency.locations[emergency.locations.length - 1]">
