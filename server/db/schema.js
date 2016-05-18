@@ -29,7 +29,7 @@ knex.schema.createTableIfNotExists('schools', function (table) {
 
 knex.schema.createTableIfNotExists('events', function (table) {
   table.increments('ID').primary()
-  table.timestamp('created_at').defaultTo(knex.fn.now())
+  table.string('created_at')
   table.string('uid')
   table.string('description')
   table.boolean('active')
