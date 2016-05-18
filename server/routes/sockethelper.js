@@ -86,6 +86,7 @@ function joinStudentEvent (studentid, eventid) {
       } else if (resp[0].active === 0) {
         resp[0].active = false
       }
+      resp[0].ended = null
       resp[0].id = resp[0].id.toUpperCase()
       resp[0].location = JSON.parse(resp[0].location)
       resp[0].location = resp[0].location[0]
@@ -136,8 +137,13 @@ function insertLocation (uid, loc) {
           .where('ID', lid)
           .update({locations: resp}).then(function (resp) {
             console.log('new location   inserted', resp)
+          }).then(function (resp) {
+            knex('locations')
+            .where('ID', lid)
+            .then(function (resp) {
+              resolve(resp)
+            })
           })
-          resolve(loc)
         })
       })
   })
@@ -163,6 +169,8 @@ function onEnded (id, time) {
         .where('uid', id)
         .then(function (resp) {
           console.log('case closed', resp)
+          resp[0].location = JSON.parse(resp[0].location)
+          resp[0].location = resp[0].location[0]
           resolve(resp)
         })
       })

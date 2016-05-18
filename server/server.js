@@ -106,7 +106,7 @@ io.on('connection', function (socket) {
     console.log('this is the new data.location', data.location)
     // var location = JSON.stringify(data.location)
     sockethelper.insertLocation(data.uid, data.location).then(function (response) {
-      response['uid'] = data.uid
+      response['id'] = data.id
       console.log('response from the other side jaysus', response)
       io.sockets.emit('movement', response)
     })
