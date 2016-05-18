@@ -4,22 +4,16 @@ var helper = require('./helper.js')
 var Auth = require('./auth.js')
 
 router.get('/', function (req, res) {
-  var token = req.headers.token
-  var schoolname = req.headers.schoolname
-  console.log('this is schoolname is req.header', schoolname)
   var showSchools = function () {
     helper.showAllSchools().then(function (response) {
       res.json({
         success: true,
-        response: response,
-        message: 'school data attached'
+        response: response
       })
     })
   }
-  var error = function () {
-    res.status(404).json({success: false, tokenValid: false})
-  }
-  Auth.verifyToken(token, showSchools, error)
+
+  showSchools()
 })
 
 router.get('/:school/students', function (req, res) {
