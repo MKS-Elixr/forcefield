@@ -15,7 +15,7 @@
       },
 
       signIn: function (school, password) {
-        $http.post('/schools/signin', {school: school, password: password})
+        $http.post('/schools/signin', {school: school.name, password: password})
           .success(function (data) {
             $localStorage.school = school
             $localStorage.token = data.token
