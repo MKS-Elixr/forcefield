@@ -58,7 +58,7 @@ io.on('connection', function (socket) {
       return studentinfo
     }).then(function () {
       console.log('chain continued')
-      sockethelper.insertEvent(location, studentinfo.schoolid).then(function (response) {
+      sockethelper.insertEvent(location, studentinfo.schoolid, utcDate).then(function (response) {
         console.log('inside insertevent', response)
         eventid = response
         console.log('eventid', eventid)
@@ -103,7 +103,6 @@ io.on('connection', function (socket) {
     var utcDate = dt.toUTCString()
     data.location['timestamp'] = utcDate
     console.log('this is the new data.location', data.location)
-    // var location = JSON.stringify(data.location)
     sockethelper.insertLocation(data.uid, data.location).then(function (response) {
       response['uid'] = data.uid
       console.log('response from the other side jaysus', response)
@@ -116,7 +115,7 @@ io.on('connection', function (socket) {
     var dt = new Date()
     var utcDate = dt.toUTCString()
     sockethelper.onEnded(data.id, utcDate).then(function (response) {
-      console.log('hi')
+      console.log('hi', response)
       io.sockets.emit('ended', response)
     })
   })
