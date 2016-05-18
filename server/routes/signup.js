@@ -14,8 +14,7 @@ router.post('/signup', function (req, res) {
 
   helper.getStudentsEmail(req.body.email).then(function (resp) {
     if (resp.length === 0) {
-      knex('students').insert({email: req.body.email, password: req.body.password, phonenum: req.body.phone, name: req.body.name}).then(function (res) {
-      })
+      knex('students').insert({email: req.body.email, password: req.body.password, phonenum: req.body.phone, name: req.body.name}).then(function (res) {})
       res.json({success: true, generateToken: generateToken})
     } else {
       res.json({success: false})

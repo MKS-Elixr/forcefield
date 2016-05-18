@@ -11,10 +11,10 @@ function getStudentInfo (email) {
   })
 }
 
-function insertEvent (loc, sid) {
+function insertEvent (loc, sid, time) {
   console.log('inside event')
   return new Promise(function (resolve, reject) {
-    knex('events').insert({uid: pseudoRandomString(), location: loc, active: true, created_at: knex.fn.now(), sid: sid})
+    knex('events').insert({uid: pseudoRandomString(), location: loc, active: true, created_at: time, sid: sid})
       .select('ID')
       .then(function (resp) {
         console.log('event inserted ', resp)
@@ -157,14 +157,15 @@ function onEnded (id, time) {
     knex('events')
       .where('uid', id)
       .update({active: false, ended: time})
-
       .then(function (resp) {
         knex('events')
-        .where('uid', id)
-        .then(function (resp) {
-          console.log('case closed', resp)
-          resolve(resp)
-        })
+          .where('uid', id)
+          .then(function (resp) {
+            console.log('case closed', resp)
+            resp[0].active = false
+            resp[0].uid = resp[0].uid.toUpperCase()
+            resolve(resp)
+          })
       })
   })
 }
