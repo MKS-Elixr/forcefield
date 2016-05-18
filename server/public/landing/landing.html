@@ -7,7 +7,7 @@
         <div class="school-selector">
           <div layout="row">
             <md-input-container>
-              <md-select ng-model="landing.school" placeholder="Select a School">
+              <md-select ng-model="landing.account.school" placeholder="Select a School">
                 <md-optgroup label="schools">
                   <md-option ng-repeat="school in landing.schools" ng-value="school">{{school.name}}</md-option>
                 </md-optgroup>
@@ -16,7 +16,7 @@
           </div>
         </div>
         <md-input-container md-no-float class="md-block password-input">
-          <input ng-model="landing.password" type="password" placeholder="Password">
+          <input ng-model="landing.account.password" type="password" placeholder="Password">
         </md-input-container>
       </md-content>
       <md-button ng-click="landing.signIn()" class="md-raised">Sign In</md-button>
