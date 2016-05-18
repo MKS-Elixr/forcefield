@@ -4,9 +4,9 @@ function showAllSchools () {
   return new Promise(function (resolve, reject) {
     knex('schools')
       .select('name', 'location', 'zoom')
-        .then(function (resp) {
-          resolve(resp)
-        })
+      .then(function (resp) {
+        resolve(resp)
+      })
   })
 }
 

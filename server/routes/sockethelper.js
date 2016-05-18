@@ -152,22 +152,22 @@ function insertNewEventLocation (eventid, loc) {
   })
 }
 
-function onEnded (id,time) {
-    return new Promise (function (resolve, reject) {
+function onEnded (id, time) {
+  return new Promise(function (resolve, reject) {
     knex('events')
       .where('uid', id)
       .update({active: false, ended: time})
       .then(function (resp) {
         knex('events')
-        .where('uid', id)
-        .then(function (resp) {
-          console.log('case closed', resp)
-          resp[0].active=false
-          resp[0].uid=resp[0].uid.toUpperCase()
-          resolve(resp)
-        })
+          .where('uid', id)
+          .then(function (resp) {
+            console.log('case closed', resp)
+            resp[0].active = false
+            resp[0].uid = resp[0].uid.toUpperCase()
+            resolve(resp)
+          })
       })
-    })
+  })
 }
 
 module.exports = {
