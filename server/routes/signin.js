@@ -19,7 +19,7 @@ router.post('/schools/signin', function (req, res) {
       helper.getSchoolPassword(req.body.school).then(function (resp) {
         if (req.body.password === resp[0]['password']) {
           console.log('resp at 0', resp[0])
-          res.json({success: true, generateToken: generateToken}).status(201)
+          res.json({success: true, token: generateToken}).status(201)
         } else {
           res.json({success: false}).status(500)
         }
