@@ -12,20 +12,18 @@
 
     // Variables
     vm.emergencies = []
-    vm.map = {
-      center: {
-        latitude: 34.018344,
-        longitude: -118.491285
-      },
-      zoom: 14,
-      showHeat: false
-    }
     vm.school = Authentication.current().school
     // Workaround for #93
     if (typeof vm.school.location === 'string') {
       vm.school.location = eval('(' + vm.school.location + ')') // eslint-disable-line no-eval
     }
     vm.showActive = true
+    // Reorder Later
+    vm.map = {
+      center: vm.school.location,
+      zoom: vm.school.zoom,
+      showHeat: false
+    }
 
     // Functions
     vm.centerOn = centerOn
