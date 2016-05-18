@@ -114,7 +114,13 @@
     }
 
     function signOut () {
-      Authentication.signOut()
+      var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to logout?')
+        .ok('Logout')
+        .cancel('Cancel')
+      $mdDialog.show(confirm).then(function () {
+        Authentication.signOut()
+      })
     }
   }
 })()
