@@ -86,7 +86,10 @@ function joinStudentEvent (studentid, eventid) {
       } else if (resp[0].active === 0) {
         resp[0].active = false
       }
-      resp[0].ended = null
+      if (resp[0].ended === '0000-00-00 00:00:00') {
+        resp[0].ended = null
+      }
+
       resp[0].id = resp[0].id.toUpperCase()
       resp[0].location = JSON.parse(resp[0].location)
       resp[0].location = resp[0].location[0]
@@ -115,7 +118,7 @@ function insertLocation (uid, loc) {
       .select('ID')
       .where('uid', uid)
       .then(function (resp) {
-        console.log('******this is resp', resp[0].ID)
+        console.log('******this is resp', resp[0])
         eventid = resp[0].ID
         return eventid
       }).then(function () {
@@ -158,21 +161,19 @@ function insertNewEventLocation (eventid, loc) {
   })
 }
 
-function onEnded (id, time) {
+function onEnded (id) {
   return new Promise(function (resolve, reject) {
     knex('events')
       .where('uid', id)
-      .update({active: false, ended: time})
-
+      .update({active: false, ended: knex.fn.now()})
       .then(function (resp) {
         knex('events')
-        .where('uid', id)
-        .then(function (resp) {
-          console.log('case closed', resp)
-          resp[0].location = JSON.parse(resp[0].location)
-          resp[0].location = resp[0].location[0]
-          resolve(resp)
-        })
+          .where('uid', id)
+          .then(function (resp) {
+            console.log('case closed', resp)
+            resp[0].active = false
+            resolve(resp)
+          })
       })
   })
 }

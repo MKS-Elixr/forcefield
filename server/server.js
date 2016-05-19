@@ -105,7 +105,7 @@ io.on('connection', function (socket) {
     data.location['timestamp'] = utcDate
     console.log('this is the new data.location', data.location)
     // var location = JSON.stringify(data.location)
-    sockethelper.insertLocation(data.uid, data.location).then(function (response) {
+    sockethelper.insertLocation(data.id, data.location).then(function (response) {
       response['id'] = data.id
       console.log('response from the other side jaysus', response)
       io.sockets.emit('movement', response)
@@ -114,9 +114,7 @@ io.on('connection', function (socket) {
 
   socket.on('ended', function (data) {
     console.log('Case closed', data)
-    var dt = new Date()
-    var utcDate = dt.toUTCString()
-    sockethelper.onEnded(data.id, utcDate).then(function (response) {
+    sockethelper.onEnded(data.id).then(function (response) {
       console.log('hi')
       io.sockets.emit('ended', response)
     })
