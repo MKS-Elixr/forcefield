@@ -45,9 +45,9 @@ For commit messages, try to stick with [these guidelines](http://tbaggery.com/20
 
 These are  examples of good commit messages:
 
-- `Installed ngCordova`
-- `Added Prompt for Geolocation Permissions`
-- `Fixed Session Token Handling`
+- `Install ngCordova`
+- `Add Prompt for Geolocation Permissions`
+- `Fix Session Token Handling`
 
 while these are not:
 - `I Got ngCordova to Work.`
