@@ -14,7 +14,9 @@ notifications:
   email: false
 deploy:
   provider: heroku
-  app: jubilant-umbrella
+  app:
+    master: jubilant-umbrella
+    backup-plan: forcefield
   api_key:
     secure: iTkFi0FSnN2GIIDfAnDz7eIZ8DqmtvbHlTUbfm+9m5giFHNuwlGuLBgXKVSbqTGRDlaCrOH5Eu9iB698SCOwBFa/tJw1oat80F0tMdEPCnYDKSNhpIvk9HcpRVDnQs6T5rUyEj4KXWvWyccCaeleU2rNN67D1Ihf5skfpO8BTm37rngB+VzXVz0yufEhCS2Kha6NUIJdRlLKW0dOccXM45yUVu65hAMARKA4oRx6f0dimAergWWYExw8rXuyRD4Plk14FDMl8+q3++P+wF6wXtaX6mMZ/uyynDfITfpagmzDm2TmyWRcSQRN4okiCQ0Hy/M+q270h93ZPHvZWPe92oSNUAYfSJnDo+iEn8wlu7xM6Nq5GQVvPLkNB1Q/nI7P9q138hHjTG4jBa4LLZxgUgDMokoM5FGV4oaKSmKja0cofSUj0ShaVvbFqzORcWZYjRxYwxlbR926m9AEDKyA1ySneLRQYsYJIUkEiCXI3oG2jRY0jKPq78S8Olnd28Z2PzHsBFf4fbKgVmS297G2q+DjvtlQEPPP4fCIVC/sgGEHK4NMaL3PKbINbGwIiIAloP2CWZtB2BmEf2yLxu7oAnpKh8VfCbrIbTtS3EmnE1nD3wXo8AMMAuu/pUCtB7RYzcdf1MfDXgvwrq118iEBT2VxBVF1DoTeCVTXbpbVCC8=
 cache:
