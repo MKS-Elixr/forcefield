@@ -16,6 +16,7 @@
     vm.showActive = true
     // Reorder Later
     vm.map = {
+      animation: google.maps.Animation.DROP,
       center: vm.school.location,
       zoom: vm.school.zoom,
       showHeat: false
