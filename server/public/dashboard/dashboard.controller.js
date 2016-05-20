@@ -40,6 +40,13 @@
       Socket.on('newEmergency', function (emergency) {
         vm.emergencies.push(emergency)
       })
+      Socket.on('movement', function (position) {
+        vm.emergencies.forEach(function (emergency) {
+          if (emergency.id === position.id) {
+            emergency.locations.push(position.location)
+          }
+        })
+      })
     }
 
     function centerOn (emergency) {
