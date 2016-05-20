@@ -97,7 +97,7 @@ io.on('connection', function (socket) {
     })
   })
 
-  socket.on('newPosition', function (data) {
+  socket.on('positionChange', function (data) {
     console.log('Movement Detected', data)
     var date = new Date().toISOString().slice(0, 19)
     data.location['timestamp'] = date
