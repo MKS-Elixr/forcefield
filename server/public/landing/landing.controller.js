@@ -21,7 +21,7 @@
 
     function activate () {
       Schools.then(function success (response) {
-        vm.schools = response.data.response
+        vm.schools = response.data.data
       })
     }
 

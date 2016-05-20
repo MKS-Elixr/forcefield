@@ -35,7 +35,7 @@
     // Implementation Details
     function activate () {
       Emergencies.all.then(function success (response) {
-        vm.emergencies = response.data.response
+        vm.emergencies = response.data.data
       })
       Socket.on('newEmergency', function (emergency) {
         vm.emergencies.push(emergency)
