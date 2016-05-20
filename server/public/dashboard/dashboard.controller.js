@@ -13,10 +13,6 @@
     // Variables
     vm.emergencies = []
     vm.school = Authentication.current().school
-    // Workaround for #93
-    if (typeof vm.school.location === 'string') {
-      vm.school.location = eval('(' + vm.school.location + ')') // eslint-disable-line no-eval
-    }
     vm.showActive = true
     // Reorder Later
     vm.map = {
