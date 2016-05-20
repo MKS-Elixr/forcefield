@@ -79,9 +79,12 @@ html, body {
 
 .school-selector {
   background-color: white;
-  margin-left: 110px;
 }
 
 .password-input {
   width: 151px;
+}
+
+.md-input-has-placeholder {
+  margin: 0 auto;
 }
