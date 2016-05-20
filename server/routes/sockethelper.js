@@ -141,7 +141,9 @@ function insertLocation (uid, loc) {
           }).then(function (resp) {
             knex('locations')
             .where('ID', lid)
+            .select('locations', 'eid')
             .then(function (resp) {
+              resp[0].id = uid
               resolve(resp)
             })
           })
