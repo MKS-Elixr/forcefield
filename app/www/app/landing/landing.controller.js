@@ -139,7 +139,9 @@
       // Listen for Button Presses
       ble.startNotification(vm.connected.id, 'FFFFFFF0-00F7-4000-B000-000000000000', 'FFFFFFF4-00F7-4000-B000-000000000000', function (buffer) {
         // Triger Socket Emergency When Pressed
-        triggerEmergency()
+        if (new Uint8Array(buffer)[0] === 1) {
+          triggerEmergency()
+        }
       }, error)
 
       // Finish
