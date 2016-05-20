@@ -13,10 +13,6 @@
     // Variables
     vm.emergencies = []
     vm.school = Authentication.current().school
-    // Workaround for #93
-    if (typeof vm.school.location === 'string') {
-      vm.school.location = eval('(' + vm.school.location + ')') // eslint-disable-line no-eval
-    }
     vm.showActive = true
     // Reorder Later
     vm.map = {
@@ -113,8 +109,8 @@
 
     function signOut () {
       var confirm = $mdDialog.confirm()
-        .title('Are you sure you want to logout?')
-        .ok('Logout')
+        .title('Are you sure you want to sign out?')
+        .ok('Sign Out')
         .cancel('Cancel')
       $mdDialog.show(confirm).then(function () {
         Authentication.signOut()
