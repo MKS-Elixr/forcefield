@@ -45,11 +45,9 @@
       $ionicSlideBoxDelegate.update()
 
       // Write Verification Key
-      var verificationKey = new Uint8Array([0x80, 0xbe, 0xf5, 0xac, 0xff])
-      ble.write(vm.connected.id, 'FFFFFFF0-00F7-4000-B000-000000000000', 'FFFFFFF5-00F7-4000-B000-000000000000', verificationKey.buffer, function success () {
+      ble.write(vm.connected.id, 'FFFFFFF0-00F7-4000-B000-000000000000', 'FFFFFFF5-00F7-4000-B000-000000000000', (new Uint8Array([0x80, 0xbe, 0xf5, 0xac, 0xff])).buffer, function success () {
         // Switch From Long Presses to Short Presses
-        var detectionSetting = new Uint8Array([0x01])
-        ble.write(vm.connected.id, 'FFFFFFF0-00F7-4000-B000-000000000000', 'FFFFFFF2-00F7-4000-B000-000000000000', detectionSetting.buffer, function success () {
+        ble.write(vm.connected.id, 'FFFFFFF0-00F7-4000-B000-000000000000', 'FFFFFFF2-00F7-4000-B000-000000000000', (new Uint8Array([0x01])).buffer, function success () {
           // Finish
           callback()
         }, error)
