@@ -98,7 +98,6 @@
             connect(device, function success () {
               // Configure Device
               configure(function success () {
-                console.log('inside configure')
                 // Subscribe to Button Presses
                 subscribe(function success () {
                   // Set Message to Connected
