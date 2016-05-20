@@ -6,6 +6,7 @@ function getStudentInfo (email) {
       .select('ID', 'sid')
       .where('email', email)
       .then(function (resp) {
+        console.log('this is resp from get student info', resp)
         resolve(resp)
       })
   })
@@ -82,6 +83,7 @@ function joinStudentEvent (studentid, eventid, time) {
     .join('events as e', 'se.eid', '=', 'e.ID')
     .join('students as s', 'se.created_by', '=', 's.ID')
     .select('e.uid as id', 's.name as by', 's.phonenum as phone', 'e.created_at as started', 'e.active as active', 'e.location as location', 'e.ended as ended').then(function (resp) {
+      console.log('this is resp from joinSE', resp)
       if (resp[0].active === 1) {
         resp[0].active = true
       } else if (resp[0].active === 0) {
@@ -142,6 +144,8 @@ function insertLocation (uid, loc) {
             knex('locations')
             .where('ID', lid)
             .then(function (resp) {
+              console.log('this is insertevnt resp', resp)
+              resp[0].ID = uid
               resolve(resp)
             })
           })

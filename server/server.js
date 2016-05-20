@@ -103,7 +103,6 @@ io.on('connection', function (socket) {
     data.location['timestamp'] = date
     console.log('this is the new data.location', data.location)
     sockethelper.insertLocation(data.id, data.location).then(function (response) {
-      response['id'] = data.id
       console.log('response from the other side jaysus', response)
       io.sockets.emit('movement', response)
     })
