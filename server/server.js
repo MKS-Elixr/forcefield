@@ -1,128 +1,67 @@
 // Require Dependencies Alphabetically
 var app = require('express')()
-var bodyParser = require('body-parser')
-var cors = require('cors')
 var express = require('express')
 var morgan = require('morgan')
 var server = require('http').Server(app)
-var sockethelper = require('./routes/sockethelper.js')
 
 // Require Dependencies Non Alphabetically
 var io = require('socket.io')(server)
 
-// Use Body Parser
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
-
-// Use CORS
-app.use(cors())
-
-// Use Morgan
+// Use Morgan for Logging
 app.use(morgan('dev'))
 
 // Serve Public Directory as Root
-app.use('', express.static('./public'))
+app.use(express.static('./public'))
 
 // Setup Routes
-app.use('/schools', require('./routes/routes.js'))
-app.use(require('./routes/signin.js'))
-app.use(require('./routes/signup.js'))
+app.use('/schools', require('./routes/schools.js'))
 
 // Initialize Server
 server.listen(process.env.PORT || 8080)
 
 // Listen for Socket Connections
-io.on('connection', function (socket) {
+io.on('connection', function (client) {
   console.log('New Connection')
 
   // Listen for Button Presses
-  socket.on('buttonPress', function (data) {
-    console.log('Button Pressed', data)
-    var eventid
-    var studentinfo = {}
-    var seid
-    var lid
-    var dt = new Date()
-    var utcDate = dt.toUTCString()
-    data.location['timestamp'] = utcDate
-    var location = []
-    location.push(data.location)
-    location = JSON.stringify(location)
+  client.on('buttonPress', function (data) {
+    console.log('Button Pressed:', data)
 
-    sockethelper.getStudentInfo(data.email).then(function (response) {
-      response.forEach(function (currentEl) {
-        studentinfo['studentid'] = currentEl.ID
-        studentinfo['schoolid'] = currentEl.sid
-      })
-      console.log('studentid', studentinfo.studentid)
-      console.log('schoolid', studentinfo.schoolid)
-      return studentinfo
-    }).then(function () {
-      console.log('chain continued')
-      sockethelper.insertEvent(location, studentinfo.schoolid).then(function (response) {
-        console.log('inside insertevent', response)
-        eventid = response
-        console.log('eventid', eventid)
-        return response
-      }).then(function () {
-        console.log('chain continued 2')
-        sockethelper.insertIntoStudentEvents(studentinfo.studentid, eventid).then(function (response) {
-          console.log('studentevent inserted', response)
-          seid = response[0]
-          return seid
-        }).then(function () {
-          console.log('chain continued 2.5')
-          console.log('this is location server.js', location)
-          sockethelper.insertNewEventLocation(eventid, location).then(function (response) {
-            console.log('initial location inserted', response)
-            lid = response[0]
-            return lid
-          }).then(function () {
-            console.log('chain continued 3')
-            sockethelper.joinStudentEvent(studentinfo.studentid, eventid).then(function (response) {
-              console.log('this is response', response)
-              var formattedResponse = {
-                active: response[0].active,
-                by: response[0].by,
-                ended: response[0].ended,
-                id: response[0].id,
-                locations: [response[0].location],
-                phone: response[0].phone,
-                started: response[0].started
-              }
-              io.sockets.emit('newEmergency', formattedResponse)
-            })
-          })
-        })
-      })
+    // Emit a New Emergency
+    console.log('Emitting a New Emergency')
+    io.sockets.emit('newEmergency', {
+      active: true,
+      by: 'Mark Castle',
+      ended: null,
+      id: '6KL9J',
+      locations: [{
+        latitude: data.location.latitude,
+        longitude: data.location.longitude,
+        timestamp: Date.now()
+      }],
+      phone: '012.345.6789',
+      started: Date.now()
     })
   })
 
-  socket.on('newPosition', function (data) {
-    console.log('Movement Detected', data)
-    var dt = new Date()
-    var utcDate = dt.toUTCString()
-    data.location['timestamp'] = utcDate
-    console.log('this is the new data.location', data.location)
-    // var location = JSON.stringify(data.location)
-    sockethelper.insertLocation(data.id, data.location).then(function (response) {
-      response['id'] = data.id
-      console.log('response from the other side jaysus', response)
-      io.sockets.emit('movement', response)
+  // Listen for Position Changes
+  client.on('positionChange', function (data) {
+    console.log('Position Change:', data)
+
+    // Emit Movement
+    console.log('Emitting Movement')
+    io.sockets.emit('movement', {
+      id: data.id,
+      location: {
+        latitude: data.location.latitude,
+        longitude: data.location.longitude,
+        timestamp: Date.now()
+      }
     })
   })
 
-  socket.on('ended', function (data) {
-    console.log('Case closed', data)
-    sockethelper.onEnded(data.id).then(function (response) {
-      console.log('hi')
-      io.sockets.emit('ended', response)
-    })
+  client.on('ended', function (data) {
+    console.log('Ended:', data)
+    io.sockets.emit('ended', data)
   })
 })
-
-// socket.on('ended',function (data) {
-
-// })
-
-module.exports = app
