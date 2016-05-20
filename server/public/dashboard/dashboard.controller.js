@@ -25,6 +25,7 @@
     vm.centerOn = centerOn
     vm.closeEmergency = closeEmergency
     vm.fakeEmergency = fakeEmergency
+    vm.fakeMovement = fakeMovement
     vm.heatLayer = heatLayer
     vm.insertHeatLayer = insertHeatLayer
     vm.logout = logout
@@ -66,6 +67,16 @@
         location: {
           latitude: '34.01' + randomNum1,
           longitude: '-118.49' + randomNum2
+        }
+      })
+    }
+
+    function fakeMovement () {
+      Socket.emit('positionChange', {
+        id: '6KL9J',
+        location: {
+          latitude: '34',
+          longitude: '-118'
         }
       })
     }
