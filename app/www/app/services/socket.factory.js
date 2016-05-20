@@ -7,7 +7,7 @@
 
   function Socket (socketFactory) {
     return socketFactory({
-      ioSocket: io.connect('http://jubilant-umbrella.herokuapp.com')
+      ioSocket: io.connect('http://forcefield.herokuapp.com')
     })
   }
 })()
