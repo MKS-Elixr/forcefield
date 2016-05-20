@@ -78,6 +78,11 @@
       console.log(message)
     }
 
+    function findPosition (callback) {
+      $cordovaGeolocation.getCurrentPosition()
+        .then(callback)
+    }
+
     function nextSlide () {
       $ionicSlideBoxDelegate.next()
     }
@@ -149,14 +154,30 @@
     }
 
     function triggerEmergency () {
-      // Trigger Socket Emergency
-      Socket.emit('buttonPress', {
-        email: Math.floor((Math.random() * 100000) + 1).toString() + '@example.com',
-        location: {
-          latitude: '34.01' + Math.floor((Math.random() * 100000) + 1).toString(),
-          longitude: '-118.49' + Math.floor((Math.random() * 100000) + 1).toString()
-        }
+      // Find User's Position
+      findPosition(function (position) {
+        // Emit Button Press
+        Socket.emit('buttonPress', {
+          email: 'testdain@email.com',
+          location: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        })
       })
+
+      // Get Emergency ID
+      Socket.on('newEmergency', function (emergency) {
+        // Watch User's Position
+        watchPosition(function (position) {
+          Socket.emit('positionChange', {id: emergency.id, location: {latitude: position.coords.latitude, longitude: position.coords.longitude}})
+        })
+      })
+    }
+
+    function watchPosition (callback) {
+      $cordovaGeolocation.watchPosition()
+        .then(null, error, callback)
     }
   }
 })()
