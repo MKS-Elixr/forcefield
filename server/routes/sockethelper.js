@@ -11,13 +11,14 @@ function getStudentInfo (email) {
   })
 }
 
-function insertEvent (loc, sid) {
+function insertEvent (loc, sid, time) {
   console.log('inside event')
   return new Promise(function (resolve, reject) {
-    knex('events').insert({uid: pseudoRandomString(), location: loc, active: true, created_at: knex.fn.now(), sid: sid})
+    knex('events').insert({uid: pseudoRandomString(), location: loc, active: true, created_at: time, sid: sid})
       .select('ID')
       .then(function (resp) {
         console.log('event inserted ', resp)
+        resp[0].started = time
         resolve(resp)
       })
   })
@@ -74,7 +75,7 @@ function getEventTime (eventid) {
   })
 }
 
-function joinStudentEvent (studentid, eventid) {
+function joinStudentEvent (studentid, eventid, time) {
   return knex('studentsevents as se')
     .where('se.created_by', studentid)
     .where('se.eid', eventid)
@@ -86,14 +87,9 @@ function joinStudentEvent (studentid, eventid) {
       } else if (resp[0].active === 0) {
         resp[0].active = false
       }
-      if (resp[0].ended === '0000-00-00 00:00:00') {
-        resp[0].ended = null
-      }
-
+      resp[0].ended = null
+      resp[0].started = time
       resp[0].id = resp[0].id.toUpperCase()
-      resp[0].location = JSON.parse(resp[0].location)
-      resp[0].location = resp[0].location[0]
-
       return resp
     })
 }
@@ -131,7 +127,9 @@ function insertLocation (uid, loc) {
           lid = resp[0].ID
           location = JSON.parse(location)
           console.log('this is parsed location', location)
+          // loc['timestamp'] = knex.fn.now()
           location.push(loc)
+
           location = JSON.stringify(location)
           console.log('this is location after push', location)
           return location
@@ -161,17 +159,19 @@ function insertNewEventLocation (eventid, loc) {
   })
 }
 
-function onEnded (id) {
+function onEnded (id, time) {
   return new Promise(function (resolve, reject) {
     knex('events')
       .where('uid', id)
-      .update({active: false, ended: knex.fn.now()})
+      .update({active: false, ended: time})
       .then(function (resp) {
         knex('events')
           .where('uid', id)
+          .select('uid', 'active', 'ended')
           .then(function (resp) {
             console.log('case closed', resp)
             resp[0].active = false
+            resp[0].ended = time
             resolve(resp)
           })
       })
