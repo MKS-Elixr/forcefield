@@ -5,9 +5,9 @@
     .module('jubilant-umbrella')
     .factory('Emergencies', Emergencies)
 
-  function Emergencies ($http) {
+  function Emergencies (Authentication, $http) {
     return {
-      all: $http.get('/schools/markersquare/emergencies')
+      all: $http.get('/schools/' + Authentication.current().school.name + '/emergencies')
     }
   }
 })()
