@@ -143,7 +143,7 @@ function insertLocation (uid, loc) {
             .where('ID', lid)
             .select('locations', 'eid')
             .then(function (resp) {
-              resp[0].id = uid
+              resp[0].id = uid.toUpperCase()
               resolve(resp)
             })
           })
