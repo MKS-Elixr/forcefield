@@ -42,9 +42,8 @@ io.on('connection', function (socket) {
     var studentinfo = {}
     var seid
     var lid
-    var dt = new Date()
-    var utcDate = dt.toUTCString()
-    data.location['timestamp'] = utcDate
+    var date = new Date().toISOString().slice(0, 19)
+    data.location['timestamp'] = date
     var location = []
     location.push(data.location)
     location = JSON.stringify(location)
@@ -59,7 +58,7 @@ io.on('connection', function (socket) {
       return studentinfo
     }).then(function () {
       console.log('chain continued')
-      sockethelper.insertEvent(location, studentinfo.schoolid).then(function (response) {
+      sockethelper.insertEvent(location, studentinfo.schoolid, date).then(function (response) {
         console.log('inside insertevent', response)
         eventid = response
         console.log('eventid', eventid)
@@ -79,14 +78,14 @@ io.on('connection', function (socket) {
             return lid
           }).then(function () {
             console.log('chain continued 3')
-            sockethelper.joinStudentEvent(studentinfo.studentid, eventid).then(function (response) {
+            sockethelper.joinStudentEvent(studentinfo.studentid, eventid, date).then(function (response) {
               console.log('this is response', response)
               var formattedResponse = {
                 active: response[0].active,
                 by: response[0].by,
                 ended: response[0].ended,
                 id: response[0].id,
-                locations: [response[0].location],
+                locations: response[0].location,
                 phone: response[0].phone,
                 started: response[0].started
               }
@@ -100,11 +99,9 @@ io.on('connection', function (socket) {
 
   socket.on('newPosition', function (data) {
     console.log('Movement Detected', data)
-    var dt = new Date()
-    var utcDate = dt.toUTCString()
-    data.location['timestamp'] = utcDate
+    var date = new Date().toISOString().slice(0, 19)
+    data.location['timestamp'] = date
     console.log('this is the new data.location', data.location)
-    // var location = JSON.stringify(data.location)
     sockethelper.insertLocation(data.id, data.location).then(function (response) {
       response['id'] = data.id
       console.log('response from the other side jaysus', response)
@@ -113,16 +110,12 @@ io.on('connection', function (socket) {
   })
 
   socket.on('ended', function (data) {
-    console.log('Case closed', data)
-    sockethelper.onEnded(data.id).then(function (response) {
-      console.log('hi')
+    var date = new Date().toISOString().slice(0, 19)
+    sockethelper.onEnded(data.id, date).then(function (response) {
+      console.log('hi', response)
       io.sockets.emit('ended', response)
     })
   })
 })
-
-// socket.on('ended',function (data) {
-
-// })
 
 module.exports = app
