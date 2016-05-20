@@ -5,6 +5,10 @@ function showAllSchools () {
     knex('schools')
       .select('name', 'location', 'zoom')
         .then(function (resp) {
+          resp.forEach(function (currentEl) {
+            console.log(currentEl.location)
+            currentEl.location = JSON.parse(currentEl.location)
+          })
           resolve(resp)
         })
   })
