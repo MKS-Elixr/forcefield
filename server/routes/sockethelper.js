@@ -90,6 +90,7 @@ function joinStudentEvent (studentid, eventid, time) {
       resp[0].ended = null
       resp[0].started = time
       resp[0].id = resp[0].id.toUpperCase()
+      resp[0].location = JSON.parse(resp[0].location)
       return resp
     })
 }
