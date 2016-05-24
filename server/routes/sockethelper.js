@@ -145,6 +145,7 @@ function insertLocation (uid, loc) {
             .select('locations', 'eid')
             .then(function (resp) {
               resp[0].id = uid.toUpperCase()
+              resp[0].locations = JSON.parse(resp[0].locations)
               resolve(resp)
             })
           })
